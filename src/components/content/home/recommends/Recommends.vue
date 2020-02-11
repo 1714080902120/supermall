@@ -52,7 +52,6 @@ export default {
     display: flex;
     background: transparent;
     border-bottom: 10px solid rgba(100, 100, 100, .12);
-    margin-bottom: 400px;
   }
   [v-cloak] {
     display: none;

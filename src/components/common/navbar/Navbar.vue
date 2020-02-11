@@ -15,7 +15,7 @@
 <script>
 
 export default {
-  name: 'navbar',
+  name: 'Navbar',
   data () {
     return {
       width: '',
@@ -42,12 +42,15 @@ export default {
 
 <style lang="less">
   #navbar {
+    position: sticky;
+    top: 0;
     display: flex;
     color: #fff;
     background-color: #f85878;
     line-height: 44px;
     border-bottom: 1px solid rgba(100, 100, 100, .2);
     text-align: center;
+    z-index: 999;
     .center {
     flex: 1;
   }

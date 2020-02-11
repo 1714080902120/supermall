@@ -1,10 +1,10 @@
 <template>
   <div id="home">
-    <navbar>
+    <Navbar>
       <div slot="left"></div>
       <div slot="center">购物街</div>
       <div slot="right"></div>
-    </navbar>
+    </Navbar>
     <div v-if="ready">
       <Carousel
         :bannersList="bannersList"
@@ -16,12 +16,13 @@
       :recommendsList="recommendsList"
       v-cloak>
       </Recommends>
+      <FeatureView/>
     </div>
   </div>
 </template>
 
 <script>
-import { navbar, Carousel, Recommends } from './index'
+import { Navbar, Carousel, Recommends, FeatureView } from './index'
 import { getHomeMultaData } from 'network/home'
 
 export default {
@@ -37,9 +38,10 @@ export default {
     }
   },
   components: {
-    navbar,
+    Navbar,
     Carousel,
-    Recommends
+    Recommends,
+    FeatureView
   },
   created () {
     this.getMultaData()
@@ -64,7 +66,7 @@ export default {
   mounted () {
     setTimeout(() => {
       this.reload()
-    }, 100)
+    }, 250)
   }
 }
 </script>
