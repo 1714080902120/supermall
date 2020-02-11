@@ -50,4 +50,7 @@ export default {
  [v-cloak] {
    display: none;
  }
+ #carousel {
+   margin-bottom: 5px;
+ }
 </style>

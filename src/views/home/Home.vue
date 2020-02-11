@@ -2,7 +2,7 @@
   <div id="home">
     <navbar>
       <div slot="left"></div>
-      <div slot="center">首页</div>
+      <div slot="center">购物街</div>
       <div slot="right"></div>
     </navbar>
     <div v-if="ready">
@@ -12,12 +12,16 @@
         :firstImage="firstImage"
         v-cloak>
       </Carousel>
+      <Recommends
+      :recommendsList="recommendsList"
+      v-cloak>
+      </Recommends>
     </div>
   </div>
 </template>
 
 <script>
-import { navbar, Carousel } from './index'
+import { navbar, Carousel, Recommends } from './index'
 import { getHomeMultaData } from 'network/home'
 
 export default {
@@ -26,6 +30,7 @@ export default {
     return {
       multaData: null,
       bannersList: null,
+      recommendsList: null,
       length: 0,
       firstImage: '',
       ready: true
@@ -33,7 +38,8 @@ export default {
   },
   components: {
     navbar,
-    Carousel
+    Carousel,
+    Recommends
   },
   created () {
     this.getMultaData()
@@ -45,6 +51,7 @@ export default {
         this.bannersList = res.data.banner.list
         this.length = this.bannersList.length
         this.firstImage = this.bannersList[0].image
+        this.recommendsList = this.multaData.recommend.list
       })
     },
     reload () {
@@ -57,7 +64,7 @@ export default {
   mounted () {
     setTimeout(() => {
       this.reload()
-    }, 500)
+    }, 100)
   }
 }
 </script>

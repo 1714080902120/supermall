@@ -176,7 +176,6 @@ export default {
     padding: 0;
     margin: 0;
     height: 100%;
-    margin-top: 20px;
     left: 0px;
     border: 0;
     .specA {
