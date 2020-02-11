@@ -7,30 +7,28 @@
     </navbar>
     <div v-if="ready">
       <Carousel
-      :banners="banners"
-      :length="length"
-      :firstImage="firstImage"
-      :lastImage="lastImage">
+        :bannersList="bannersList"
+        :length="length"
+        :firstImage="firstImage"
+        v-cloak>
       </Carousel>
     </div>
   </div>
 </template>
 
 <script>
-
-import navbar from 'components/common/navbar/Navbar'
-import Carousel from 'components/common/carousel/Carousel'
+import { navbar, Carousel } from './index'
 import { getHomeMultaData } from 'network/home'
+
 export default {
   name: 'Home',
   data () {
     return {
       multaData: null,
-      banners: null,
+      bannersList: null,
       length: 0,
       firstImage: '',
-      lastImage: '',
-      ready: false
+      ready: true
     }
   },
   components: {
@@ -38,22 +36,28 @@ export default {
     Carousel
   },
   created () {
-    this.getMultaData(),
-    this.ready = true
+    this.getMultaData()
   },
   methods: {
     getMultaData () {
       getHomeMultaData().then((res) => {
-          this.multaData = res.data
-          this.banners = res.data.banner.list
-          this.length = this.banners.length
-          this.firstImage = this.banners[0].image
-          this.lastImage = this.banners[this.length - 1].image
+        this.multaData = res.data
+        this.bannersList = res.data.banner.list
+        this.length = this.bannersList.length
+        this.firstImage = this.bannersList[0].image
       })
     },
-    test () {
-      alert('msg')
+    reload () {
+      this.ready = false
+      this.$nextTick(() => {
+        this.ready = true
+      })
     }
+  },
+  mounted () {
+    setTimeout(() => {
+      this.reload()
+    }, 500)
   }
 }
 </script>

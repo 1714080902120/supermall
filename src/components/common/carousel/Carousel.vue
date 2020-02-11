@@ -1,54 +1,53 @@
 <template>
-  <div id="carousel" :style="{ width, height }">
-    <CarouselBase :leng="length" :banners="banners" :firstImage="firstImage" :lastImage="lastImage">
-      <div slot="carouselBase" class="part" v-for="item in banners" :key="item.acm">
+  <div id="carousel" :style="{ width, height }" v-cloak>
+    <CarouselBase :leng="length" :bannersList="bannersList" :firstImage="firstImage">
+      <div slot="carouselBase" class="part" v-for="item in bannersList" :key="item.acm">
         <CarouselItem>
-          <a slot="img" href="javascript:;">
+          <a slot="img" :href="item.link">
             <img ref="img" :src="item.image" :width="width" :height="height">
           </a>
         </CarouselItem>
       </div>
-      <CarouselBall slot="carouselBall" :len="banners"></CarouselBall>
+      <CarouselBall slot="carouselBall" :len="bannersList"></CarouselBall>
     </CarouselBase>
   </div>
 </template>
 
 <script>
-
 import { CarouselBase, CarouselItem, CarouselBall } from './index.js'
-
-
 export default {
   name: 'Carousel',
   props: {
-    banners: Array,
+    bannersList: Array,
     length: Number,
-    firstImage: String,
-    lastImage: String
+    firstImage: String
   },
   data () {
     return {
-      width: window.innerWidth,
-      height: window.innerHeight / 3
+      width: document.body.clientWidth,
+      height: document.body.clientHeight / 3
     }
   },
+  created () {
+  },
   methods: {
-    select () {
-      let img
-      this.$nextTick(() => {
-        img = this.$refs.img
-        console.log(img)
-      })
-    }
   },
   components: {
     CarouselBase,
     CarouselItem,
     CarouselBall
+  },
+  watch: {
+  },
+  mounted () {
+  },
+  destroyed () {
   }
 }
 </script>
 
 <style lang="less">
-
+ [v-cloak] {
+   display: none;
+ }
 </style>

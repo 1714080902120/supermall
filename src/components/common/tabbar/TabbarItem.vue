@@ -14,6 +14,7 @@
 
 <script>
 export default {
+  name: 'TabbarItem',
   props: {
     path: String,
     color: {
@@ -27,7 +28,8 @@ export default {
   },
   methods: {
     activated () {
-      this.$router.replace(this.path)   
+      this.$router.replace(this.path)
+      console.log(this.$router)
     }
   },
   computed: {

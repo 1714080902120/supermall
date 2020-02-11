@@ -18,10 +18,6 @@ export default {
     width: 100%;
     height: 100%;
     border: 0;
-    a {
-      height: 100%;
-      width: 100%;
-    }
     img {
       height: 100%;
     }
