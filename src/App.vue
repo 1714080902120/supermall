@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view/>
-  <tabbar/>
+    <tabbar/>
   </div>
 </template>
 
@@ -11,7 +11,6 @@ export default {
   name: 'app',
   data () {
     return {
-
     }
   },
   components: {

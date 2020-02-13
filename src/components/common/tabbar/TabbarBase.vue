@@ -7,6 +7,10 @@
 <script>
 export default {
   name: 'TabbarBase',
+  data () {
+    return {
+    }
+  }
 }
 </script>
 
@@ -17,9 +21,8 @@ export default {
     display: flex;
     left: 0px;
     right: 0px;
-    bottom: 0px;
+    bottom: -1px;
     box-shadow: 0px -1px 0 rgba(200, 200, 200, .5);
-    font-size: 18px;
     font-family: cursive;
     font-weight: bold;
   }

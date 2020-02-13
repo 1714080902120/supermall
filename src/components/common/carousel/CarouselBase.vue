@@ -165,6 +165,10 @@ export default {
   destroyed () {
     window.clearInterval(this.timer)
     window.clearInterval(this.time)
+    if (parseInt(this.width) <= 370) {
+      this.moving = null
+    }
+
   }
 }
 </script>

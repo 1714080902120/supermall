@@ -35,7 +35,7 @@ export default {
         this.fontSize = '18px'
       }
       this.width = width / 4.5 + 'px'
-    }, 200)
+    }, 20)
   }
 }
 </script>
@@ -53,7 +53,6 @@ export default {
     z-index: 999;
     .center {
     flex: 1;
-  }
+    }
   }
 </style>
-

@@ -1,6 +1,6 @@
 <template>
-  <div id="carousel" :style="{ width, height }" v-cloak>
-    <CarouselBase :leng="length" :bannersList="bannersList" :firstImage="firstImage">
+  <div id="carousel" :style="{ 'width': width, 'height': height }" v-cloak>
+    <CarouselBase :leng="leng" :bannersList="bannersList" :firstImage="firstImage">
       <div slot="carouselBase" class="part" v-for="item in bannersList" :key="item.acm">
         <CarouselItem>
           <a slot="img" :href="item.link">
@@ -18,17 +18,23 @@ import { CarouselBase, CarouselItem, CarouselBall } from './index.js'
 export default {
   name: 'Carousel',
   props: {
-    bannersList: Array,
-    length: Number,
-    firstImage: String
+    bannersList: Array
   },
   data () {
     return {
-      width: document.body.clientWidth,
-      height: document.body.clientHeight / 3
+      width: window.innerWidth + 'px',
+      height: window.innerHeight / 3 + 'px',
+      banners: null,
+      leng: 0,
+      firstImage: ''
     }
   },
   created () {
+    setTimeout(() => {
+      this.banners = this.bannersList
+      this.leng = this.bannersList.length
+      this.firstImage = this.banners[0].image
+    }, 100)
   },
   methods: {
   },

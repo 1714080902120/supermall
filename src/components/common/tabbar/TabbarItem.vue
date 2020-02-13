@@ -1,15 +1,15 @@
 <template>
- <div id="tabbar-item" @click="activated">
-  <div v-if="!show">
-    <slot name="tabbar-icon"></slot>
+  <div id="tabbar-item" @click="activated">
+    <div v-if="!show">
+      <slot name="tabbar-icon"></slot>
     </div>
-  <div v-else-if="show">
-    <slot name="tabbar-icon_active"></slot>
+    <div v-else-if="show">
+      <slot name="tabbar-icon_active"></slot>
     </div>
-  <div :style="activeStyle">
-    <slot name="tabbar-text"></slot>
+    <div :style="activeStyle">
+     <slot name="tabbar-text"></slot>
+    </div>
   </div>
- </div>
 </template>
 
 <script>
@@ -47,13 +47,10 @@ export default {
   #tabbar-item {
     flex: 1;
     text-align: center;
-    height: 49px;
     margin-top: 2px;
     img {
-      height: 25px;
-      width: 25px;
       vertical-align: middle;
-      margin-bottom: 3px;
+      margin-bottom: 1px;
     }
   }
   .active {
