@@ -34,9 +34,17 @@ export default {
       this.banners = this.bannersList
       this.leng = this.bannersList.length
       this.firstImage = this.banners[0].image
+      this.toFit()
     }, 100)
   },
   methods: {
+    toFit () {
+      if (document.body.clientWidth > 1024) {
+        this.height = window.innerHeight + 'px'
+      } else if (document.body.clientWidth > 800) {
+        this.height = window.innerHeight / 2 + 'px'
+      }
+    }
   },
   components: {
     CarouselBase,

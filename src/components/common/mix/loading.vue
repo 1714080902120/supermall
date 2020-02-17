@@ -17,6 +17,7 @@
 .loader {
   width: 100%;
   height: 100%;
+  z-index: 99;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,7 +54,7 @@
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: #333;
+  background-color: #f00;
   position: absolute;
 }
 

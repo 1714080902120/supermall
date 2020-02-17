@@ -96,7 +96,9 @@ export default {
         return false
       }
       this.endX = e.changedTouches[0].pageX
-      this.innerInterval()
+      this.$nextTick(() => {
+        this.innerInterval()
+      })
       window.setTimeout(() => {
         window.clearInterval(this.time)
         this.moving()
@@ -107,32 +109,34 @@ export default {
       let ref, wid, length, dev
       length = this.leng
       wid = parseInt(this.width)
-      ref = this.$refs.moving
-      this.time = window.setInterval(() => {
-        if (this.startX - this.endX < 0 && Math.abs(this.endX / this.startX) >= 3) {
-          this.position += this.movingPart
-        } else {
-          this.position -= this.movingPart
-        }
-        if (this.position <= -length * wid) {
-          this.position = 0
-        }
-        ref.style.left = this.position + 'px'
-        dev = Math.abs(this.position / wid)
-        if (
-          dev === 0 ||
-          dev === 1 ||
-          dev === 2 ||
-          dev === 3
-        ) {
-          for (let i = 0; i < length; i++) {
-            this.ballActive = dev
+      this.$nextTick(() => {
+        ref = this.$refs.moving
+        this.time = window.setInterval(() => {
+          if (this.startX - this.endX < 0 && Math.abs(this.endX / this.startX) >= 3) {
+            this.position += this.movingPart
+          } else {
+            this.position -= this.movingPart
           }
-          this.startX = 1
-          this.endX = 1
-          window.clearInterval(this.time)
-        }
-      }, this.movingTime)
+          if (this.position <= -length * wid) {
+            this.position = 0
+          }
+          ref.style.left = this.position + 'px'
+          dev = Math.abs(this.position / wid)
+          if (
+            dev === 0 ||
+            dev === 1 ||
+            dev === 2 ||
+            dev === 3
+          ) {
+            for (let i = 0; i < length; i++) {
+              this.ballActive = dev
+            }
+            this.startX = 1
+            this.endX = 1
+            window.clearInterval(this.time)
+          }
+        }, this.movingTime)
+      })
     },
     tofit () {
       // 适配

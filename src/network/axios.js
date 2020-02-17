@@ -3,13 +3,13 @@ import store from 'store/index'
 export default function (options) {
   return new Promise((resolve, reject) => {
     const instance = Axios.create({
-      baseURL: 'http://123.207.32.32:8000',
+      baseURL: 'http://123.207.32.32:8000/api/hy',
 			timeout: 5000
     })
 
     instance.interceptors.request.use(config => {
       // 在这里对请求进行拦截 处理
-      console.log('request请求成功！')
+      // console.log('request请求成功！')
       store.state.loading = true
       return config
     }, err => {
@@ -17,7 +17,7 @@ export default function (options) {
       return err
     })
     instance.interceptors.response.use(res => {
-      console.log('response请求成功！')
+      // console.log('response请求成功！')
       // 请求成功发送，请求得到要求则返回成功
       store.state.loading = false
       return res.data

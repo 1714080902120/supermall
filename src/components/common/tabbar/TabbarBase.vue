@@ -17,6 +17,7 @@ export default {
 <style lang="less">
   #tabbar-base {
     position: fixed;
+    z-index: 999;
     background-color: #f6f6f6;
     display: flex;
     left: 0px;

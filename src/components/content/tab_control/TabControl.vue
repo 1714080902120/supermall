@@ -1,7 +1,7 @@
 <template>
   <div id="tab-control" :style="{ 'height': height, 'top': height, 'font-size': fontSize }">
-    <div class="tab-control-item" v-for="(item, index) in title" :key="item">
-      <div class="inside" :class="{active: index === active}" :style="{ 'margin': margin }" @touchstart="touchStart($event)" @touchmove="touchMove($event)" @touchend="touchEnd(index)">{{item}}</div>
+    <div :style="{ 'height': height }" class="tab-control-item" v-for="(item, index) in titles" :key="item.ch">
+      <div class="inside" :class="{active: index === active}" :style="{ 'margin': margin }" @touchstart="touchStart($event)" @touchmove="touchMove($event)" @touchend="touchEnd(index)">{{item.ch}}</div>
     </div>
   </div>
 </template>
@@ -10,13 +10,13 @@
 export default {
   name: 'TabControl',
   props: {
-    title: Array
+    titles: Array
   },
   data () {
     return {
       height: window.innerHeight / 16 + 'px',
       fontSize: window.innerWidth / 20 + 'px',
-      margin: '10px 26px',
+      margin: '10px 36px',
       active: 0,
       startX: 0
     }
@@ -24,9 +24,9 @@ export default {
   created () {
     let wid = window.innerWidth
     if (wid >= 1024) {
-      this.margin = '20px 70px'
+      this.margin = '20px 100px'
     } else if (wid >= 512) {
-      this.margin = '20px 50px'
+      this.margin = '20px 70px'
     }
   },
   methods: {
@@ -35,7 +35,9 @@ export default {
     touchMove () {
     },
     touchEnd (index) {
+      if (this.active === index) return false
       this.active = index
+      this.$store.commit('applyGoodList', this.active)
     }
   }
 }
@@ -46,13 +48,14 @@ export default {
     position: sticky;
     display: flex;
     text-align: center;
+    background: #fff;
+    z-index: 3;
     .tab-control-item {
       flex: auto;
       border: 0;
       .inside {
-        border-bottom: 4px solid transparent;
-        padding: 10px;
-        margin: 12px 26px;
+        border-bottom: 3px solid transparent;
+        padding-bottom: 5px;
       }
       .active {
         color: #f00;

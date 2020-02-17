@@ -10,21 +10,21 @@
       <div v-if="$store.state.errState">
         <Error/>
       </div>
-      <div v-else-if="!$store.state.errState">
-        <Carousel
-          :bannersList="bannersList"
-          v-cloak>
-        </Carousel>
-        <Recommends
-          :recommendsList="recommendsList"
-          v-cloak>
-        </Recommends>
-        <FeatureView/>
-        <TabControl :title="title"></TabControl>
-        <ul v-for="item in 100" :key="item">
-        <li></li>
-        </ul>
-      </div>
+      <BetterScroll :probeType="3" :pullUpLoad="{ threshold: 100 }" @addGoods="addNewGoods()">
+        <div v-if="!$store.state.errState">
+          <Carousel
+            :bannersList="bannersList"
+            v-cloak>
+          </Carousel>
+          <Recommends
+            :recommendsList="recommendsList"
+            v-cloak>
+          </Recommends>
+          <FeatureView/>
+          <TabControl :titles="titles" ref="toShowGoods"></TabControl>
+          <GoodList :goodList="need"></GoodList>
+        </div>
+      </BetterScroll>
     </div>
   </div>
 </template>
@@ -36,6 +36,8 @@ import {
   Recommends,
   FeatureView,
   TabControl,
+  GoodList,
+  BetterScroll,
   // others
   Error
 } from './index'
@@ -52,25 +54,35 @@ export default {
       recommendsList: null,
       ready: true,
       screenWidth: document.body.clientWidth,
-      title: [
-        '流行',
-        '新款',
-        '精选'
+      titles: [
+        {
+          ch: '流行',
+          en: 'pop'
+        },
+        {
+          ch: '热销',
+          en: 'sell'
+        },
+        {
+          ch: '最新',
+          en: 'new'
+        }
       ],
       goods: {
         'pop': {
-          page: 0,
-          list: []
-        },
-        'new': {
-          page: 0,
+          page: 1,               
           list: []
         },
         'sell': {
-          page: 0,
+          page: 1,
+          list: []
+        },
+        'new': {
+          page: 1,
           list: []
         }
-      }
+      },
+      need: []
     }
   },
   components: {
@@ -80,11 +92,16 @@ export default {
     FeatureView,
     Loading,
     Error,
-    TabControl
+    TabControl,
+    GoodList,
+    BetterScroll
   },
   created () {
     this.getMultaData()
-    this.getGoods('pop')
+    this.getGoods('pop', 1)
+    this.getGoods('sell', 1)
+    this.getGoods('new', 1)
+    this.whenNeed(this.goods.pop.list)
   },
   updated () {
   },
@@ -95,21 +112,28 @@ export default {
         this.recommendsList = res.data.recommend.list
       })
     },
-    getGoods (type) {
-      const page = this.goods[type].page + 1
-      console.log(page)
+    getGoods (type, page) {
       getHomeGoods(type, page).then(res => {
-        console.log(res)
         this.goods[type].list.push(...res.data.list)
-        console.log(res)
       })
-      console.log(this.goods)
     },
     reload () {
       this.ready = false
       this.$nextTick(() => {
         this.ready = true
       })
+    },
+    whenNeed (list) {
+      this.need = list
+    },
+    addNewGoods () {
+      let type, page
+      type = this.titles[this.$store.state.goodListState].en
+      console.log(type)
+      this.goods[type].page += 1
+      page = this.goods[type].page
+      this.getGoods(type, page)
+      this.whenNeed(this.goods[type].list)
     }
   },
   mounted () {
@@ -130,12 +154,24 @@ export default {
         this.reload()
       }, 100)
     },
+    '$store.state.goodListState' (newVal) {
+      let type
+      type = this.titles[newVal].en
+      if (this.goods[type].page === 0) {
+        this.goods[type].page += 1
+        this.getGoods(type, 1)
+      }
+      this.whenNeed(this.goods[type].list)
+    },
     immediate: true
   }
 }
 </script>
 
 <style lang="less" scoped>
+  #home {
+    overflow: hidden;
+  }
   .loading {
     position: absolute;
   }
