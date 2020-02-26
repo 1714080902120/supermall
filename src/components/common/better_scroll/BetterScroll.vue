@@ -15,8 +15,11 @@ export default {
   props: {
     probeType: Number,
     pullUpLoad: {
-      type: Object,
-      default () { return {} }
+      type: Object
+    },
+    fixLocation: {
+      type: Number,
+      default: 0
     }
   },
   data () {
@@ -24,7 +27,8 @@ export default {
       BS: null,
       width: window.innerWidth + 'px',
       height: window.innerHeight * (1 - (1 / 16) - (1 / 13)) + 'px',
-      show: false
+      show: false,
+      y: 0
     }
   },
   mounted () {
@@ -32,8 +36,9 @@ export default {
       this.getBetterScroll()
       this.startScroll()
       this.pullingUp()
+      this.position()
+      this.goScrollTo()
     })
-
   },
   components: {
     BackToTop
@@ -45,10 +50,14 @@ export default {
         probeType: this.probeType,
         pullUpLoad: this.pullUpLoad
       })
-      console.log(this.BS)
     },
     backToTop () {
       this.BS.scrollTo(0, 0, 500)
+    },
+    goScrollTo () {
+      this.BS.on('scroll', (position) => {
+        this.$emit('go', position)
+      })
     },
     startScroll () {
       this.BS.on('scroll', (position) => {
@@ -60,17 +69,49 @@ export default {
       })
     },
     pullingUp () {
-      if (this.pullUpLoad) {
+      if (this.pullUpLoad && this.$store.state.moduleDetail.active) {
         this.BS.on('pullingUp', () => {
           setTimeout(() => {
             this.$emit('addGoods')
-          }, 2000)
+          }, 2200)
           console.log('上拉加载更多')
           setTimeout(() => {
             this.BS.finishPullUp()
-          }, 4000)
+          }, 6000)
         })
       }
+    },
+    scrollTo (position, delay) {
+      this.BS.scrollTo(position.x, position.y, delay)
+    },
+    refresh () {
+      this.BS.refresh()
+    },
+    position () {
+      this.BS.on('scroll', (position) => {
+        this.y = -position.y
+        if (this.y >= this.fixLocation) {
+          this.$store.commit('toChangeAppear')
+        } else {
+          this.$store.state.moduleHome.appear = false
+        }
+      })
+    },
+    judgePosition (...args) {
+      let width  = window.innerWidth * 0.14
+      args = args.map(n => { return -n })
+      console.log(args)
+      this.BS.on('scroll', (position) => {
+        if (position.y <= args[2] + width) {
+          this.bus.$emit('changeDetailNavbarIndex', 3)
+        } else if (position.y <= args[1] + width) {
+          this.bus.$emit('changeDetailNavbarIndex', 2)
+        }  else if (position.y <= args[0] + width) {
+          this.bus.$emit('changeDetailNavbarIndex', 1)
+        } else {
+          this.bus.$emit('changeDetailNavbarIndex', 0)
+        }
+      })
     }
   }
 }

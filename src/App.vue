@@ -1,7 +1,11 @@
 <template>
   <div id="app">
-    <router-view/>
-    <tabbar/>
+    <keep-alive>
+      <router-view/>  
+    </keep-alive>
+    <div v-if="notInDetail">
+      <tabbar/>
+    </div>
   </div>
 </template>
 
@@ -11,10 +15,20 @@ export default {
   name: 'app',
   data () {
     return {
+      notInDetail: true
     }
   },
   components: {
     tabbar
+  },
+  watch: {
+    '$route' () {
+      if (this.$route.path.indexOf('/detail') !== -1) {
+        this.notInDetail = false
+      } else {
+        this.notInDetail = true
+      }
+    }
   }
 }
 </script>

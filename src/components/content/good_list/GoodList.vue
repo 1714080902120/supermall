@@ -1,13 +1,13 @@
 <template>
   <div id="good-list">
     <div v-for="(item, index) in goodList" :key="index">
-      <GoodListItem>
-        <a slot="img" :href="item.link">
-          <img :src="item.show.img" alt="">
+      <GoodListItem :iid="item.iid">
+        <a slot="img" href="javascript:;">
+          <img :src="item.show.img" alt="" @load="refresh()">
         </a>
-        <a :href="item.link" slot="title" :title="item.title">
+        <p slot="title" :title="item.title">
           {{item.title}}
-        </a>
+        </p>
         <span slot="price">{{item.orgPrice}}</span>
           <img :width="width" :height="width" slot="svg" src="~assets/img/good_list/collect.svg" alt="">
           <img :width="width" :height="width" slot="svg-active" src="~assets/img/good_list/collect_active.svg" alt="">
@@ -43,6 +43,13 @@ export default {
   methods: {
     getGoods () {
       this.goods = this.goodList
+    },
+    refresh () {
+      if (this.$route.path.indexOf('home') !== -1) {
+        this.bus.$emit('imgLoad')
+      } else if (this.$route.path.indexOf('detail') !== -1) {
+        this.bus.$emit('detailImgLoad')
+      }
     }
   }
 }
@@ -55,8 +62,5 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    a {
-      color: #000;
-    }
   }
 </style>

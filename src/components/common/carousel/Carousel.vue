@@ -1,14 +1,14 @@
 <template>
   <div id="carousel" :style="{ 'width': width, 'height': height }" v-cloak>
-    <CarouselBase :leng="leng" :bannersList="bannersList" :firstImage="firstImage">
-      <div slot="carouselBase" class="part" v-for="item in bannersList" :key="item.acm">
+    <CarouselBase :leng="leng" :bannersList="list" :firstImage="firstImage">
+      <div slot="carouselBase" class="part" v-for="item in list" :key="item.acm">
         <CarouselItem>
           <a slot="img" :href="item.link">
             <img ref="img" :src="item.image" :width="width" :height="height">
           </a>
         </CarouselItem>
       </div>
-      <CarouselBall slot="carouselBall" :len="bannersList"></CarouselBall>
+      <CarouselBall slot="carouselBall" :len="list"></CarouselBall>
     </CarouselBase>
   </div>
 </template>
@@ -18,7 +18,7 @@ import { CarouselBase, CarouselItem, CarouselBall } from './index.js'
 export default {
   name: 'Carousel',
   props: {
-    bannersList: Array
+    list: Array
   },
   data () {
     return {
@@ -31,8 +31,8 @@ export default {
   },
   created () {
     setTimeout(() => {
-      this.banners = this.bannersList
-      this.leng = this.bannersList.length
+      this.banners = this.list
+      this.leng = this.list.length
       this.firstImage = this.banners[0].image
       this.toFit()
     }, 100)

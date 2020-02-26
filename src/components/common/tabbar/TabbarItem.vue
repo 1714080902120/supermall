@@ -29,7 +29,7 @@ export default {
   methods: {
     activated () {
       this.$router.replace(this.path)
-      console.log(this.$router)
+      // console.log(this.$router)
     }
   },
   computed: {
@@ -37,7 +37,7 @@ export default {
       return this.$route.path.indexOf(this.path) !== -1
     },
     activeStyle () {
-      return this.show ? {color: this.color} : {}
+      return this.show ? { color: this.color } : {}
     }
   },
 }

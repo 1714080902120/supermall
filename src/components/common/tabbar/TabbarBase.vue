@@ -24,7 +24,5 @@ export default {
     right: 0px;
     bottom: -1px;
     box-shadow: 0px -1px 0 rgba(200, 200, 200, .5);
-    font-family: cursive;
-    font-weight: bold;
   }
 </style>

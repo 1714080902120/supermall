@@ -23,7 +23,7 @@ export default {
   #back-to-top {
     position: fixed;
     right: 4px;
-    top: 70%;
+    top: 78%;
     width: 50px;
     height: 50px;
     border-radius: 50%;

@@ -1,5 +1,5 @@
 <template>
-  <div id="navbar" :style="{ 'height': height, 'font-size': fontSize, 'line-height': height }">
+  <div id="navbar" :style="{ 'height': height, 'font-size': fontSize, 'line-height': height, 'background-color': color }">
     <div class="left" :style="{ 'width': width }">
       <slot name="left"></slot>
     </div>
@@ -16,6 +16,9 @@
 
 export default {
   name: 'Navbar',
+  props: {
+    color: String
+  },
   data () {
     return {
       width: '',
@@ -42,11 +45,11 @@ export default {
 
 <style lang="less">
   #navbar {
-    position: sticky;
+    position: relative;
     top: 0;
     display: flex;
     color: #fff;
-    background-color: #f85878;
+    background-color: transparent;
     line-height: 44px;
     border-bottom: 1px solid rgba(100, 100, 100, .2);
     text-align: center;

@@ -2,14 +2,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import Router from 'vue-router'
-
-const originalPush = Router.prototype.push
-Router.prototype.push = function push(location, onResolve, onReject) {
-  if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
-  return originalPush.call(this, location).catch(err => err)
-}
-
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
+Vue.prototype.bus = new Vue ()
+Vue.use(MintUI)
 Vue.config.productionTip = false
 
 new Vue({

@@ -1,7 +1,7 @@
 <template>
   <div id="tab-control" :style="{ 'height': height, 'top': height, 'font-size': fontSize }">
     <div :style="{ 'height': height }" class="tab-control-item" v-for="(item, index) in titles" :key="item.ch">
-      <div class="inside" :class="{active: index === active}" :style="{ 'margin': margin }" @touchstart="touchStart($event)" @touchmove="touchMove($event)" @touchend="touchEnd(index)">{{item.ch}}</div>
+      <div class="inside" :class="{ active: index === active }" :style="{ 'margin': margin }" @touchstart="touchStart($event)" @touchmove="touchMove($event)" @touchend="touchEnd(index)">{{item.ch}}</div>
     </div>
   </div>
 </template>
@@ -10,14 +10,17 @@
 export default {
   name: 'TabControl',
   props: {
-    titles: Array
+    titles: Array,
+    active: {
+      type: Number,
+      default: 0
+    }
   },
   data () {
     return {
       height: window.innerHeight / 16 + 'px',
       fontSize: window.innerWidth / 20 + 'px',
       margin: '10px 36px',
-      active: 0,
       startX: 0
     }
   },
@@ -36,8 +39,7 @@ export default {
     },
     touchEnd (index) {
       if (this.active === index) return false
-      this.active = index
-      this.$store.commit('applyGoodList', this.active)
+      this.$store.commit('applyGoodList', index)
     }
   }
 }

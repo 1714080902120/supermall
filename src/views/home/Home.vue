@@ -2,18 +2,27 @@
   <div id="home">
     <Loading class="loading" v-if="$store.state.loading"></Loading>
     <div v-if="ready">
-      <Navbar>
+      <Navbar color="#f85878">
         <div slot="left"></div>
         <div slot="center">购物街</div>
         <div slot="right"></div>
       </Navbar>
+      <div v-show="$store.state.moduleHome.appear">
+        <TabControl :titles="titles" :active="active" ref="toShowGoods-copy"></TabControl>
+      </div>
       <div v-if="$store.state.errState">
         <Error/>
       </div>
-      <BetterScroll :probeType="3" :pullUpLoad="{ threshold: 100 }" @addGoods="addNewGoods()">
+      <BetterScroll
+        ref="scroll"
+        :probeType="3"
+        :fixLocation="offsetTop"
+        :pullUpLoad="{ threshold: 100 }"
+        @addGoods="addNewGoods()"
+        @positionFromScroll="showing()">
         <div v-if="!$store.state.errState">
           <Carousel
-            :bannersList="bannersList"
+            :list="bannersList"
             v-cloak>
           </Carousel>
           <Recommends
@@ -21,7 +30,7 @@
             v-cloak>
           </Recommends>
           <FeatureView/>
-          <TabControl :titles="titles" ref="toShowGoods"></TabControl>
+          <TabControl :titles="titles" :active="active" ref="toShowGoods"></TabControl>
           <GoodList :goodList="need"></GoodList>
         </div>
       </BetterScroll>
@@ -45,7 +54,7 @@ import {
 import { getHomeMultaData, getHomeGoods } from 'network/home'
 // other
 import Loading from 'components/common/mix/loading'
-
+import { debounce } from 'common/utils'
 export default {
   name: 'Home',
   data () {
@@ -54,6 +63,7 @@ export default {
       recommendsList: null,
       ready: true,
       screenWidth: document.body.clientWidth,
+      offsetTop: 0,
       titles: [
         {
           ch: '流行',
@@ -82,7 +92,9 @@ export default {
           list: []
         }
       },
-      need: []
+      need: [],
+      active: 0,
+      y: 0
     }
   },
   components: {
@@ -104,6 +116,17 @@ export default {
     this.whenNeed(this.goods.pop.list)
   },
   updated () {
+  },
+  activated () {
+    if (this.y !== 0) {
+      this.$refs.scroll.scrollTo({x: 0, y: this.y}, 500)
+      this.$refs.scroll.refresh()
+    }
+  },
+  deactivated () {
+    this.$nextTick(() => {
+      this.y = -this.$refs.scroll.y
+    })
   },
   methods: {
     getMultaData () {
@@ -129,24 +152,38 @@ export default {
     addNewGoods () {
       let type, page
       type = this.titles[this.$store.state.goodListState].en
-      console.log(type)
       this.goods[type].page += 1
       page = this.goods[type].page
       this.getGoods(type, page)
       this.whenNeed(this.goods[type].list)
+      this.whenImgLoad()
+    },
+    whenImgLoad () {
+      let refresh
+      refresh = debounce(this.$refs.scroll.refresh, 200)
+      this.bus.$on('imgLoad', () => {
+        refresh()
+      })
+    },
+    fixTheTabControl () {
+      this.$nextTick(() => {
+        this.offsetTop = this.$refs.toShowGoods.$el.offsetTop
+      })
     }
   },
   mounted () {
     const that = this
     setTimeout(() => {
       this.reload()
-    }, 100)
+    }, 150)
     window.onresize = () => {
       return (() => {
         window.screenWidth = document.body.clientWidth
         that.screenWidth = window.screenWidth
       }) ()
     }
+    this.whenImgLoad()
+    setTimeout(() => { this.fixTheTabControl() }, 1000)
   },
   watch: {
     'screenWidth' () {
@@ -156,11 +193,8 @@ export default {
     },
     '$store.state.goodListState' (newVal) {
       let type
+      this.active = newVal
       type = this.titles[newVal].en
-      if (this.goods[type].page === 0) {
-        this.goods[type].page += 1
-        this.getGoods(type, 1)
-      }
       this.whenNeed(this.goods[type].list)
     },
     immediate: true

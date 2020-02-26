@@ -52,8 +52,8 @@ export default {
   },
   methods: {
     moving () {
-      window.clearInterval(this.time)
-      window.clearInterval(this.timer)
+      if (this.time) window.clearInterval(this.time)
+      if (this.timer) window.clearInterval(this.timer)
       this.$nextTick(() => {
         this.timer = window.setInterval(() => {
           this.innerInterval()
@@ -67,8 +67,8 @@ export default {
         return false
       }
       this.startX = e.touches[0].pageX
-      window.clearInterval(this.timer)
-      window.clearInterval(this.time)
+      if (this.timer) window.clearInterval(this.timer)
+      if (this.time) window.clearInterval(this.time)
     },
     touchMove (e) {
       if (!this.state) {
@@ -100,12 +100,12 @@ export default {
         this.innerInterval()
       })
       window.setTimeout(() => {
-        window.clearInterval(this.time)
+        if (this.time) window.clearInterval(this.time)
         this.moving()
       }, this.watingTime)
     },
     innerInterval () {
-      window.clearInterval(this.time)
+      if (this.time) window.clearInterval(this.time)
       let ref, wid, length, dev
       length = this.leng
       wid = parseInt(this.width)
@@ -167,12 +167,8 @@ export default {
     }
   },
   destroyed () {
-    window.clearInterval(this.timer)
-    window.clearInterval(this.time)
-    if (parseInt(this.width) <= 370) {
-      this.moving = null
-    }
-
+    if (this.timer) window.clearInterval(this.timer)
+    if (this.time) window.clearInterval(this.time)
   }
 }
 </script>

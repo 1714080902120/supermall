@@ -1,0 +1,78 @@
+<template>
+  <div id="detail-navbar">
+    <Navbar>
+        <div class="left" slot="left"><img @click="goBack()" src="~assets/img/swiper/backup.svg" alt=""></div>
+        <div class="center" slot="center">
+          <span v-for="(item, index) in navbarList" :key="item" @click="active(index)" :class="{ red: ifRed === index }">
+            {{item}}
+          </span>
+        </div>
+        <div class="right" slot="right"></div>
+    </Navbar>
+  </div>
+</template>
+
+<script>
+import Navbar from 'components/common/navbar/Navbar'
+export default {
+  name: 'DetailNavbar',
+  data () {
+    return {
+      navbarList: [
+        '商品',
+        '参数',
+        '评论',
+        '推荐'
+      ],
+      ifRed: 0
+    }
+  },
+  mounted () {
+    this.acceptTheChangeIndex()
+  },
+  components: {
+    Navbar
+  },
+  methods: {
+    goBack () {
+      this.$store.state.moduleDetail.active = true
+      history.go(-1)
+    },
+    active (index) {
+      this.ifRed = index
+      this.bus.$emit('toWhere', index)
+    },
+    acceptTheChangeIndex () {
+      this.bus.$on('changeDetailNavbarIndex', (res) => {
+        this.ifRed = res
+      })
+    }
+  }
+}
+</script>
+
+<style lang="less">
+  #detail-navbar {
+    .left, .right, .center {
+      display: flex;
+      background-color: #fff;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      color: #000;
+      span {
+        flex: auto;
+      }
+    }
+    .left {
+      img {
+        margin-left: 20px;
+        width: 30%;
+      }
+    }
+  }
+  .red {
+    color: #f00;
+    font-weight: bold;
+  }
+</style>

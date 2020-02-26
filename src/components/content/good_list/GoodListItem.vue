@@ -1,9 +1,9 @@
 <template>
   <div class="good-list-item" :style="{ 'width': width, 'font-size': fontWidth }">
-    <div class="img">
+    <div class="img"  @click="toDetail()">
       <slot name="img"></slot>
     </div>
-    <div class="title" :style="{ 'height': fontWidth }">
+    <div class="title" :style="{ 'height': fontWidth }"  @click="toDetail()">
       <slot name="title"></slot>
     </div>
     <div class="price-collect">
@@ -28,6 +28,9 @@
 <script>
 export default {
   name: 'GoodListItem',
+  props: {
+    iid: String
+  },
   data () {
     return {
       active: false,
@@ -35,9 +38,14 @@ export default {
       fontWidth: window.innerWidth / 20 + 'px'
     }
   },
+  created () {
+  },
   methods: {
     collect () {
       this.active = !this.active
+    },
+    toDetail () {
+      this.$router.push('/detail/' + this.iid)
     }
   }
 }
@@ -54,14 +62,10 @@ export default {
     text-align: center;
     .title {
       width: 100%;
-      // overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-      a {
-        &:link {
-          color: rgba(200, 50, 50, .8);
-        }
+      p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
     .price-collect {
