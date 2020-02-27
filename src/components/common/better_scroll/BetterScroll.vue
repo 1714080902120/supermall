@@ -86,6 +86,7 @@ export default {
     },
     refresh () {
       this.BS.refresh()
+      console.log('ready')
     },
     position () {
       this.BS.on('scroll', (position) => {
@@ -99,7 +100,6 @@ export default {
     },
     judgePosition (...args) {
       let width  = window.innerWidth * 0.14
-      args = args.map(n => { return -n })
       console.log(args)
       this.BS.on('scroll', (position) => {
         if (position.y <= args[2] + width) {

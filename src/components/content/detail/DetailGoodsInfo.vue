@@ -10,7 +10,7 @@
     <div class="model-outer" v-for="item in list.detailImage" :key="item.key">
       <div class="key">{{item.key}}</div>
       <div class="img" v-for="imgList in item.list" :key="imgList">
-        <img :src="imgList" alt="">
+        <img :src="imgList" alt="" @load="goodsImgIsReady()">
       </div>
     </div>
   </div>
@@ -37,6 +37,11 @@ export default {
       return () => {
         return this.list.desc
       }
+    }
+  },
+  methods: {
+    goodsImgIsReady () {
+      this.bus.$emit('goodsImgIsReady')
     }
   }
 }

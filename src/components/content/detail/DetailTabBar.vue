@@ -9,8 +9,8 @@
         </div>
       </tabbarItem>
       <div class="outer" :style="{ 'line-height': height }">
-        <div class="to-shopcarp">加入购物车</div>
-        <div class="purchase">购买</div>
+        <div class="to-shopcart" @click="addToShopCart()">加入购物车</div>
+        <div class="purchase" @click="addToShopCart()">购买</div>
       </div>
     </tabbarBase>
   </div>
@@ -81,10 +81,10 @@ export default {
     .outer {
       flex: auto;
       display: flex;
-      .to-shopcarp, .purchase {
+      .to-shopcart, .purchase {
         text-align: center;
       }
-      .to-shopcarp {
+      .to-shopcart {
         color: #000;
         background-color: rgb(244, 248, 7);
       }

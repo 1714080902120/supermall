@@ -27,8 +27,17 @@ export default {
       ifRed: 0
     }
   },
+  created () {
+  },
   mounted () {
+    
+  },
+  activated () {
+    this.ifRed = 0
     this.acceptTheChangeIndex()
+  },
+  deactivated() {
+    
   },
   components: {
     Navbar

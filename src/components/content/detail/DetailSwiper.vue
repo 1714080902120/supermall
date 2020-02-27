@@ -2,7 +2,7 @@
   <div id="detail-swiper">
     <Swiper :show-indicators="true" :style="{ width, height }">
       <SwiperItem v-for="item in list" :key="item">
-        <img :src="item" alt="">
+        <img :src="item" alt="" @load="swiperIsReady()">
       </SwiperItem>
     </Swiper>
   </div>
@@ -24,6 +24,11 @@ export default {
   components: {
     Swiper: Swipe,
     SwiperItem: SwipeItem
+  },
+  methods: {
+    swiperIsReady () {
+      this.bus.$emit('swiperIsReady')
+    }
   }
 }
 </script>

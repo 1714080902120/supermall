@@ -72,12 +72,14 @@ export default {
     this.toGetRecommendData()
   },
   mounted() {
-    this.whenImgLoad()
-    setTimeout(() => {
-      this.goToNeedPosition()
-      this.getTotalPosition()
-    }, 1000)
-
+  },
+  activated () {
+    this.$nextTick(() => {
+      this.$refs.scroll.scrollTo({x: 0, y: 0}, 100)
+      this.whenImgLoad()
+    })
+  },
+  deactivated() {
   },
   methods: {
     // 详情页数据请求
@@ -144,19 +146,31 @@ export default {
     },
     // 刷新位置
     whenImgLoad () {
-      let refresh
-      refresh = debounce(this.$refs.scroll.refresh, 200)
+      let a, b, c
+      a = debounce(this.$refs.scroll.refresh, 500)
+      b = debounce(this.$refs.scroll.refresh, 500)
+      c = debounce(this.$refs.scroll.refresh, 500)
       this.bus.$on('detailImgLoad', () => {
-        refresh()
+        a()
       })
+      this.bus.$on('swiperIsReady', () => {
+        b()
+      })
+      this.bus.$on('goodsImgIsReady', () => {
+        c()
+      })
+      setTimeout(() => {
+        this.goToNeedPosition()
+        this.getTotalPosition()
+      }, 1500)
     },
     // 获取组件的位置并且传递数据
     getTotalPosition () {
       let paramsPosition, ratePosition, recommendPosition
       this.$nextTick(() => {
-        paramsPosition = this.$refs.paramsPosition.$el.offsetTop
-        ratePosition = this.$refs.ratePosition.$el.offsetTop
-        recommendPosition = this.$refs.recommendPosition.$el.offsetTop
+        paramsPosition = -this.$refs.paramsPosition.$el.offsetTop
+        ratePosition = -this.$refs.ratePosition.$el.offsetTop
+        recommendPosition = -this.$refs.recommendPosition.$el.offsetTop
         this.$refs.scroll.judgePosition(paramsPosition, ratePosition, recommendPosition)
       })
     },
@@ -180,16 +194,16 @@ export default {
         })
       })
 
-    },
-    test (position) {
-      console.log(position)
     }
+  },
+  destroyed () {
   },
   watch: {
     '$route.params.iid' (newVal) {
       if (!newVal) return false
       this.iid = newVal
       this.toGetDetailData(this.iid)
+      
     }
   }
 }
