@@ -8,6 +8,7 @@ import ParamsInfo from 'components/content/detail/DetailParamsInfo'
 import DetailRate from 'components/content/detail/DetailRate'
 import RecommendGoodsList from 'components/content/good_list/GoodList'
 import TabBar from 'components/content/detail/DetailTabBar'
+import addToShopCart from 'components/content/detail/TabBarToShopCart'
 export class GoodsDetail {
   defaultInfo
   react
@@ -68,5 +69,6 @@ export {
   ParamsInfo,
   DetailRate,
   RecommendGoodsList,
-  TabBar
+  TabBar,
+  addToShopCart
 }

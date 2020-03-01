@@ -100,7 +100,6 @@ export default {
     },
     judgePosition (...args) {
       let width  = window.innerWidth * 0.14
-      console.log(args)
       this.BS.on('scroll', (position) => {
         if (position.y <= args[2] + width) {
           this.bus.$emit('changeDetailNavbarIndex', 3)

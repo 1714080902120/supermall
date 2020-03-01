@@ -22,6 +22,8 @@ import tabbarBase from 'components/common/tabbar/TabbarBase';
 import tabbarItem from 'components/common/tabbar/TabbarItem';
 export default {
   name: 'DetailTabBar',
+  props: {
+  },
   data () {
     return {
       arr: [
@@ -70,6 +72,9 @@ export default {
       } else {
         this.fontSize = '18px'
       }
+    },
+    addToShopCart () {
+      this.$emit('addToShopCart')
     }
   }
 }
@@ -94,6 +99,5 @@ export default {
         background-color: rgb(248, 131, 186);
       }
     }
-
   }
 </style>

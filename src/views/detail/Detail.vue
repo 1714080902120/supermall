@@ -13,7 +13,10 @@
       <DetailRate :list="dataToRateInfo" ref="ratePosition"/>
       <RecommendGoodsList :goodList="dataToRecommendGoodList" ref="recommendPosition"/>
     </Scroll>
-    <TabBar/>
+    <TabBar ref="tabbar" @addToShopCart="toShopCart()"/>
+    <div v-if="sureToCart">
+      <addToShopCart :list="dataToTabBar"/>
+    </div>
   </div>
 </template>
 
@@ -32,6 +35,7 @@ import {
   DetailRate,
   RecommendGoodsList,
   TabBar,
+  addToShopCart,
   // 类
   GoodsDetail,
   DefaultInfo,
@@ -50,7 +54,9 @@ export default {
       dataToGoodsInfo: {},
       dataToParamsInfo: {},
       dataToRateInfo: {},
-      dataToRecommendGoodList: []
+      dataToRecommendGoodList: [],
+      dataToTabBar: {},
+      sureToCart: false
     }
   },
   components: {
@@ -63,7 +69,8 @@ export default {
     ParamsInfo,
     DetailRate,
     RecommendGoodsList,
-    TabBar
+    TabBar,
+    addToShopCart
   },
   created () {
     this.$store.state.moduleDetail.active = false
@@ -75,7 +82,7 @@ export default {
   },
   activated () {
     this.$nextTick(() => {
-      this.$refs.scroll.scrollTo({x: 0, y: 0}, 100)
+      this.$refs.scroll.scrollTo({ x: 0, y: 0 }, 100)
       this.whenImgLoad()
     })
   },
@@ -91,8 +98,12 @@ export default {
         this.toGetGoodsDetailData()
         this.toGetShopData()
         this.toGetGoodsListData()
-        this.toGetParamsData()
+        this.toGetParamsData().then(res => {
+          this.toGetSizeAndColor(res)
+        })
+        .catch(err => { throw new Error(err) })
         this.toGetRateData()
+        // console.log(this.detailData)
       })
       .catch((err) => {
         throw new Error(err)
@@ -131,7 +142,14 @@ export default {
     },
     // 请求参数数据
     toGetParamsData () {
-      this.dataToParamsInfo = this.detailData.itemParams
+      return new Promise((resolve, reject) => {
+        this.dataToParamsInfo = this.detailData.itemParams
+        if (this.dataToParamsInfo) {
+          resolve(this.dataToParamsInfo)
+        } else {
+          reject('No Ok')
+        }
+      })
     },
     // 请求评论数据
     toGetRateData () {
@@ -194,6 +212,33 @@ export default {
         })
       })
 
+    },
+    toGetSizeAndColor (res) {
+      let color, size, set, img, price, available
+      set = res.info.set
+      color = []
+      size = []
+      img = this.dataToSwiper[0]
+      price = this.dataToDetailInfo.defaultInfo.currentPrice
+      available = '999'
+      for(let i in set) {
+        if (set[i].key === '颜色') {
+          color = set[i].value.split(',')
+        } else if (set[i].key === '尺码') {
+          size = set[i].value.split(',')
+        }
+      }
+      this.dataToTabBar = {
+        size,
+        color,
+        img,
+        price,
+        available
+      }
+    },
+    // 加入到购物车
+    toShopCart () {
+      this.bus.$emit('toAppear')
     }
   },
   destroyed () {
@@ -204,6 +249,11 @@ export default {
       this.iid = newVal
       this.toGetDetailData(this.iid)
       
+    },
+    'dataToTabBar' (newVal) {
+      if (newVal) {
+        this.sureToCart = true
+      }
     }
   }
 }
