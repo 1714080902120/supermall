@@ -10,7 +10,7 @@
       </tabbarItem>
       <div class="outer" :style="{ 'line-height': height }">
         <div class="to-shopcart" @click="addToShopCart()">加入购物车</div>
-        <div class="purchase" @click="addToShopCart()">购买</div>
+        <div class="purchase" @click="buy()">购买</div>
       </div>
     </tabbarBase>
   </div>
@@ -74,7 +74,10 @@ export default {
       }
     },
     addToShopCart () {
-      this.$emit('addToShopCart')
+      this.bus.$emit('addToShopCart')
+    },
+    buy () {
+      this.bus.$emit('addToShopCart', 1)
     }
   }
 }

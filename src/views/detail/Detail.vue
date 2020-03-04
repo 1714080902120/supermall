@@ -13,7 +13,7 @@
       <DetailRate :list="dataToRateInfo" ref="ratePosition"/>
       <RecommendGoodsList :goodList="dataToRecommendGoodList" ref="recommendPosition"/>
     </Scroll>
-    <TabBar ref="tabbar" @addToShopCart="toShopCart()"/>
+    <TabBar ref="tabbar"/>
     <div v-if="sureToCart">
       <addToShopCart :list="dataToTabBar"/>
     </div>
@@ -103,7 +103,6 @@ export default {
         })
         .catch(err => { throw new Error(err) })
         this.toGetRateData()
-        // console.log(this.detailData)
       })
       .catch((err) => {
         throw new Error(err)
@@ -214,13 +213,19 @@ export default {
 
     },
     toGetSizeAndColor (res) {
-      let color, size, set, img, price, available
+      let color, size, set, img, price, available, shop, title
       set = res.info.set
       color = []
       size = []
       img = this.dataToSwiper[0]
       price = this.dataToDetailInfo.defaultInfo.currentPrice
       available = '999'
+      title = this.dataToDetailInfo.defaultInfo.title
+      shop = {
+        shopName: this.dataToShopInfo.name,
+        shopLogo: this.dataToShopInfo.shopLogo,
+        shopUrl: this.dataToShopInfo.shopUrl
+      }
       for(let i in set) {
         if (set[i].key === '颜色') {
           color = set[i].value.split(',')
@@ -229,16 +234,15 @@ export default {
         }
       }
       this.dataToTabBar = {
+        iid: this.iid,
         size,
         color,
         img,
         price,
-        available
+        available,
+        title,
+        shop
       }
-    },
-    // 加入到购物车
-    toShopCart () {
-      this.bus.$emit('toAppear')
     }
   },
   destroyed () {
@@ -259,7 +263,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
   #detail {
     overflow: hidden;
   }

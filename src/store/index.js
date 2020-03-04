@@ -5,6 +5,7 @@ import mutations from './mutations'
 import getters from './getters'
 import actions from './actions'
 import modules from './modules'
+import { GOODS_LIST } from 'common/const'
 
 Vue.use(Vuex)
 
@@ -12,7 +13,8 @@ export default new Vuex.Store({
   state: {
     loading: false,
     errState: false,
-    goodListState: 0
+    goodListState: 0,
+    GOODS_LIST
   },
   mutations,
   actions,
