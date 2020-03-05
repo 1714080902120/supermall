@@ -106,6 +106,9 @@ export default {
   },
   components: {
   },
+  activated () {
+    this.strat = 0
+  },
   methods: {
     sure () {
       let goods, shop, imgAndTitle, sizeAndColor, priceAndNum
@@ -127,7 +130,7 @@ export default {
         return false
       } else {
         if (!this.isBuy) {
-          this.bus.$emit('successAddToShopCart')
+          this.$store.dispatch('actions_addToGoodsList', goods)
           this.close()
           this.success = true
           this.$nextTick(() => {
@@ -216,7 +219,7 @@ export default {
         img {
           margin-right: 20px;
           float: left;
-          width: 25%;
+          width: 20%;
         }
       }
       .price-available {
@@ -250,6 +253,7 @@ export default {
           display: flex;
           text-align: center;
           justify-content: space-around;
+          flex-wrap: wrap;
           margin-top: 20px;
           .size {
             flex: auto;
@@ -274,6 +278,7 @@ export default {
           display: flex;
           text-align: center;
           justify-content: space-around;
+          flex-wrap: wrap;
           margin-top: 20px;
           .color {
             flex: auto;
