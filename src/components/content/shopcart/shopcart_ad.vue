@@ -37,7 +37,7 @@ export default {
 <style lang="less" scoped>
   #shopcart-ad {
     position: relative;
-    margin: 12px 0;
+    margin: 20px 0;
     background-color: rgb(255,248,245);
     border-radius: 15px;
     .outer {

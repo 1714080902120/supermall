@@ -59,12 +59,14 @@ export default {
         }
       }
       .btn {
-        border: 3px solid rgba(150, 146, 146, 0.2);
-        margin: 10px 100px;
+        border: 3px solid rgba(150, 146, 146, 0.3);
+        margin: 10px 130px;
         background: #fff;
-        box-sizing: content-box;
+        @media screen and (max-width: 320px) {
+          margin: 10px 110px;
+        }
         @media screen and (min-width: 700px) {
-          margin: 30px 300px;
+          margin: 30px 290px;
         }
       }
     }

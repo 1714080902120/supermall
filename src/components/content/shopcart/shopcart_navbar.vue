@@ -24,6 +24,8 @@ export default {
   components: {
     navbar
   },
+  mounted () {
+  },
   methods: {
     options () {
       this.finish.time = (this.finish.time + 1) % 2
@@ -31,6 +33,13 @@ export default {
     }
   },
   watch: {
+    'finish.time' (newVal) {
+      if (newVal === 1) {
+        this.bus.$emit('iAmGoingToDelete')
+      } else {
+        this.bus.$emit('iAmFinishDelete')
+      }
+    }
   }
 }
 </script>

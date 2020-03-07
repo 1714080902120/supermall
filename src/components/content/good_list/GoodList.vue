@@ -49,6 +49,8 @@ export default {
         this.bus.$emit('imgLoad')
       } else if (this.$route.path.indexOf('detail') !== -1) {
         this.bus.$emit('detailImgLoad')
+      } else if (this.$route.path.indexOf('shopcart') !== -1) {
+        this.bus.$emit('shopcartImgLoad')
       }
     }
   }
