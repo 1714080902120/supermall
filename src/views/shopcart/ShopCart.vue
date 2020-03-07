@@ -1,16 +1,24 @@
 <template>
   <div id="shopcart">
-    <navbar>
-      <div slot="left"></div>
-      <div slot="center">购物车</div>
-      <div slot="right"></div>
-    </navbar>
+    <Navbar/>
+    <Scroll
+      :probeType="3"
+      :pullUpLoad="{}">
+      <Ad/>
+      <Empty/>
+    </Scroll>
   </div>
 </template>
 
 <script>
 
-import navbar from 'components/common/navbar/Navbar'
+import {
+  Navbar,
+  Scroll,
+  Ad,
+  Empty
+} from './index'
+
 
 export default {
   name: 'ShopCart',
@@ -20,7 +28,13 @@ export default {
     }
   },
   components: {
-    navbar
+    Navbar,
+    Scroll,
+    Ad,
+    Empty
+  },
+  activated () {
+    this.$store.state.moduleDetail.active = false
   }
 }
 </script>
