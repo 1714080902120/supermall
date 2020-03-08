@@ -8,9 +8,9 @@
             <img  v-if="ifActive" @click="toAcitve()" src="~assets/img/shopcart/all_active.svg" alt="">&nbsp;全选
           </div>
           <div class="clear-tocollect-delete">
-            <span><img src="~assets/img/shopcart/clear.svg" alt="">清理</span>
-            <span>移入收藏夹</span>
-            <span>删除</span>
+            <span @click="clear()"><img src="~assets/img/shopcart/clear.svg" alt="">清理</span>
+            <span @click="addToCollect()">移入收藏夹</span>
+            <span @click="goDelete()">删除</span>
           </div>
         </div>
       </div>
@@ -51,6 +51,15 @@ export default {
       this.bus.$on('iAmFinishDelete', () => {
         this.ifDelete = false
       })
+    },
+    goDelete () {
+      console.log(1)
+    },
+    clear () {
+      console.log(2)
+    },
+    addToCollect () {
+      
     }
   },
   computed: {

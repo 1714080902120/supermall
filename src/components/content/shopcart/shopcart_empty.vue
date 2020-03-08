@@ -1,5 +1,5 @@
 <template>
-  <div id="shopcart-empty" v-if="isEmpty">
+  <div id="shopcart-empty" v-if="this.$store.state.GOODS_LIST.length === 0">
     <div class="outer" :style="{ 'font-size': defaultFontSize }">
       <div class="img">
         <img src="~assets/img/shopcart/cute.jpeg" alt="">
@@ -18,7 +18,6 @@ export default {
   name: 'ShopcartEmpty',
   data () {
     return {
-      isEmpty: true,
       defaultFontSize: window.innerWidth * .06 + 'px'
     }
   },
@@ -28,10 +27,6 @@ export default {
     }
   },
   activated () {
-    if (this.$store.state.GOODS_LIST.length !== 0) {
-      this.isEmpty = false
-      console.log(this.$store.state.GOODS_LIST)
-    }
   }
 }
 </script>

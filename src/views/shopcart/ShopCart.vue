@@ -7,6 +7,7 @@
       ref="scroll">
       <Ad/>
       <Empty/>
+      <GoodsDetail/>
       <Recommend/>
     </Scroll>
     <BottomItem/>
@@ -21,7 +22,8 @@ import {
   Ad,
   Empty,
   Recommend,
-  BottomItem
+  BottomItem,
+  GoodsDetail
 } from './index'
 
 export default {
@@ -37,7 +39,8 @@ export default {
     Ad,
     Empty,
     Recommend,
-    BottomItem
+    BottomItem,
+    GoodsDetail
   },
   mounted () {
     this.$nextTick(() => {
@@ -60,5 +63,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+  #shopcart {
+    background-color: rgb(250,250,250);
+  }
 </style>
