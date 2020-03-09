@@ -1,11 +1,11 @@
 <template>
   <div id="shopcart-goods-detail">
     <div v-if="$store.state.GOODS_LIST.length !== 0">
-      <div v-for="shop in $store.state.GOODS_LIST" :key="shop[0].iid">
+      <div v-for="(shop, index) in $store.state.GOODS_LIST" :key="shop[0].iid">
         <div class="outer" :style="{ 'font-size': defaultFontSize }">
           <div class="shopLogo-shopName" :style="{ 'height': shopHeight, 'line-height': shopHeight }">
-            <span class="select"><img :style="{ 'width': selectImgWidth, 'height': selectImgWidth }" v-if="!inActive" src="~assets/img/shopcart/all.svg" alt=""></span>
-            <span class="select"><img v-if="inActive" src="~assets/img/shopcart/all_active.svg" alt=""></span>
+            <span class="select"><img @click="shopManage(index)" :style="{ 'width': selectImgWidth, 'height': selectImgWidth }" v-if="shopDefaultManageState(index)" src="~assets/img/shopcart/all.svg" alt=""></span>
+            <span class="select"><img @click="shopManageActive(index)" :style="{ 'width': selectImgWidth, 'height': selectImgWidth }" v-if="shopActiveManageState(index)" src="~assets/img/shopcart/all_active.svg" alt=""></span>
             <div class="shopLogo-shopName">
               <img :src="shop[0].shop.shopLogo" alt="">
               <a :href="shop[0].shop.shopUrl">
@@ -13,7 +13,7 @@
               </a>
             </div>
           </div>
-          <div v-for="(goods, index) in shop" :key="index">
+          <div v-for="(goods, indey) in shop" :key="indey">
             <div class="discount" :style="{ 'font-size': discountFontSize, 'height': shopHeight, 'line-height': shopHeight }">
               <span class="discount-label">网店满减</span>
               <span class="discount-content">3.5 0点开享，每满200减15</span>
@@ -22,8 +22,8 @@
               </span>
             </div>
             <div class="shop-goods-detail">
-              <span class="select"><img v-if="!inActive" :style="{ 'width': selectImgWidth, 'height': selectImgWidth }" src="~assets/img/shopcart/all.svg" alt=""></span>
-              <span class="select"><img v-if="inActive"  :style="{ 'width': selectImgWidth, 'height': selectImgWidth }" src="~assets/img/shopcart/all_active.svg" alt=""></span>
+              <span class="select"><img @click="goodsManage(index, indey)" :style="{ 'width': selectImgWidth, 'height': selectImgWidth }" v-if="goodsDefaultManageState(index, indey)" src="~assets/img/shopcart/all.svg" alt=""></span>
+              <span class="select"><img @click="goodsManageActive(index, indey)" :style="{ 'width': selectImgWidth, 'height': selectImgWidth }" v-if="goodsActiveManageState(index, indey)" src="~assets/img/shopcart/all_active.svg" alt=""></span>
               <div class="img-title-sizeAndColor-priceAndNum" :style="{ 'font-size': discountFontSize, 'height': descOuterHeight }">
                 <div class="img">
                   <img :src="goods.imgAndTitle.img" alt="">
@@ -60,6 +60,7 @@ export default {
   data () {
     return {
       inActive: false,
+      activeArr: [],
       defaultFontSize: window.innerWidth * .05 + 'px',
       shopHeight: window.innerHeight * .07 + 'px',
       selectImgWidth: window.innerWidth * .05 + 'px',
@@ -81,6 +82,60 @@ export default {
       this.bus.$on('iAmFinishDelete', () => {
         this.manage = false
       })
+    },
+    shopManage (index) {
+      this.activeArr.push(this.$store.state.GOODS_LIST[index])
+      console.log(this.activeArr)
+    },
+    shopManageActive (x) {
+      if (this.activeArr.length <= 0) {
+        return false
+      }
+      this.activeArr.splice(this.activeArr.find((value, index) => {
+        console.log(value)
+        if (value[0].position.x === x) return index
+      }), 1)
+    },
+    goodsManage() {
+      
+    },
+    goodsManageActive () {
+
+    }
+  },
+  computed: {
+    shopDefaultManageState () {
+      let arr = this.activeArr
+      return (x) => {
+        if (arr.length <= x) { return true }
+        return false
+      }
+    },
+    shopActiveManageState () {
+       let arr = this.activeArr
+      return (x) => {
+        if (arr.length > x) { return true }
+        return false
+      }
+    },
+    goodsDefaultManageState () {
+      let arr = this.activeArr
+      return (x, y) => {
+        console.log()
+        if (arr.length === 0 || arr.length <= x || arr[x].length <= y) {
+          return true
+        }
+        return false
+      }
+    },
+    goodsActiveManageState () {
+      let arr = this.activeArr
+      return (x, y) => {
+        if (arr.length === 0 || arr.length <= x || arr[x].length <= y) {
+          return false
+        }
+        return true
+      }
     }
   }
 }
@@ -134,7 +189,11 @@ export default {
           color: #f00;
           margin: 0 5px;
           line-height: 20px;
-          margin-left: 38px;
+          margin-left: 50px;
+          @media screen and (max-width: 320px) {
+            line-height: 20px;
+            margin-left: 38px;
+          }
           @media screen and (min-width: 700px) {
             margin-left: 70px;
             line-height: 40px;
@@ -162,13 +221,12 @@ export default {
         background-color: rgb(249,241,238);
         display: flex;
         align-items: center;
-        align-content: flex-start;
-        justify-content: space-around;
         margin-bottom: 10px;
         .select {
-          margin-left: 10px;
+          position: relative;
           img {
             width: 34%;
+            margin-left: 10px;
           }
         }
         .img-title-sizeAndColor-priceAndNum {
@@ -176,18 +234,18 @@ export default {
           display: flex;
           justify-content: space-around;
           .img {
-            margin: 0 -170px 0 -0px;
+            margin: 0 -180px 0 20px;
             img {
-              width: 35%;
+              width: 30%;
             }
             @media screen and (max-width: 320px) {
-              margin: 0 -230px 0 -0px;
+              margin: 0 -230px 0 20px;
               img {
                 width: 20%;
               }
             }
             @media screen and (min-width: 700px) {
-              margin: 0 -190px 0 10px;
+              margin: 0 -190px 0 30px;
               img {
                 width: 40%;
               }

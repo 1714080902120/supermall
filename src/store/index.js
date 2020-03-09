@@ -14,7 +14,8 @@ export default new Vuex.Store({
     loading: false,
     errState: false,
     goodListState: 0,
-    GOODS_LIST
+    GOODS_LIST,
+    length: 4
   },
   mutations,
   actions,

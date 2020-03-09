@@ -38,6 +38,12 @@ const mutations = {
   changeNumFromGOODS_LISTByActionsToAddToShopCart (state, payload) {
     state.GOODS_LIST[payload.i][payload.j].priceAndNum.num += payload.num
     console.log(state.GOODS_LIST)
+  },
+  changeLengthAdd (state) {
+    state.length += 1
+  },
+  changeLengthSub (state) {
+    state.length -= 1
   }
 }
 
