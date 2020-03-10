@@ -40,6 +40,11 @@ export default {
   methods: {
     toAcitve () {
       this.ifActive = !this.ifActive
+      if (this.ifActive) {
+        this.bus.$emit('selectAll')
+      } else {
+        this.bus.$emit('cancel')
+      }
     },
     appear () {
       this.bus.$on('iAmGoingToDelete', () => {
@@ -84,13 +89,14 @@ export default {
           flex: auto;
           img {
             width: 15%;
-            margin-left: 2px;
+            margin-left: 8px;
             vertical-align: middle;
           }
         }
         .clear-tocollect-delete {
           position: relative;
           flex: auto;
+          margin-left: -8px;
           span {
             flex: auto;
             padding: 4px;

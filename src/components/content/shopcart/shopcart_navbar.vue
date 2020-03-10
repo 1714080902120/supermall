@@ -38,6 +38,7 @@ export default {
         this.bus.$emit('iAmGoingToDelete')
       } else {
         this.bus.$emit('iAmFinishDelete')
+        this.bus.$emit('cancel')
       }
     }
   }

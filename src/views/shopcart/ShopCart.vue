@@ -49,6 +49,9 @@ export default {
   },
   activated () {
     this.$store.state.moduleDetail.active = false
+    this.$nextTick(() => {
+      this.toRefresh()
+    })
   },
   methods: {
     // 重新定位函数

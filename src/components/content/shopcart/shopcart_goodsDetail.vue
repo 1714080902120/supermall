@@ -23,7 +23,7 @@
             </div>
             <div class="shop-goods-detail">
               <span class="select"><img @click="goodsManage(index, indey)" :style="{ 'width': selectImgWidth, 'height': selectImgWidth }" v-if="goodsDefaultManageState(index, indey)" src="~assets/img/shopcart/all.svg" alt=""></span>
-              <span class="select"><img @click="goodsManageActive(index, indey)" :style="{ 'width': selectImgWidth, 'height': selectImgWidth }" v-if="goodsActiveManageState(index, indey)" src="~assets/img/shopcart/all_active.svg" alt=""></span>
+              <span class="select"><img @click="goodsManageActive(index, indey)" :style="{ 'width': selectImgWidth, 'height': selectImgWidth }" v-if="!goodsDefaultManageState(index, indey)" src="~assets/img/shopcart/all_active.svg" alt=""></span>
               <div class="img-title-sizeAndColor-priceAndNum" :style="{ 'font-size': discountFontSize, 'height': descOuterHeight }">
                 <div class="img">
                   <img :src="goods.imgAndTitle.img" alt="">
@@ -73,6 +73,8 @@ export default {
   },
   mounted () {
     this.goDelete()
+    this.selectAll()
+    this.cancelSelectAll()
   },
   methods: {
     goDelete () {
@@ -83,56 +85,124 @@ export default {
         this.manage = false
       })
     },
+    selectAll () {
+      this.bus.$on('selectAll', () => {
+        this.activeArr = []
+        let arr = []
+        for (let i = 0; i < this.$store.state.GOODS_LIST.length; i++) {
+          arr = this.$store.state.GOODS_LIST[i].filter(n => {
+            return n
+          })
+          this.activeArr.push(arr)
+        }
+      })
+    },
+    cancelSelectAll () {
+      this.bus.$on('cancel', () => {
+        this.activeArr = []
+      })
+    },
     shopManage (index) {
-      this.activeArr.push(this.$store.state.GOODS_LIST[index])
-      console.log(this.activeArr)
+      let arr = []
+      arr = this.$store.state.GOODS_LIST[index].filter(n => {
+        return n
+      })
+      this.activeArr.push(arr)
     },
     shopManageActive (x) {
       if (this.activeArr.length <= 0) {
         return false
       }
-      this.activeArr.splice(this.activeArr.find((value, index) => {
-        console.log(value)
-        if (value[0].position.x === x) return index
-      }), 1)
+      this.activeArr.forEach((value, index) => {
+        if (value[0].position.x === x) {
+          this.activeArr.splice(index, 1)
+        }
+      })
     },
-    goodsManage() {
-      
+    goodsManage(x, y) {
+      let exist = false,
+          arr = []
+      if (this.activeArr.length >= 0) {
+        for (let i = 0; i< this.activeArr.length; i++) {
+          let outer = this.activeArr[i]
+          if (outer[0].position.x === x) {
+            for (let j = 0; j < outer; j++) {
+              if (outer[j].position.y === y) {
+                exist = true
+              }
+            }
+            if (!exist) {
+              let obj = {}
+              exist = true
+              for (let key in this.$store.state.GOODS_LIST[x][y]) {
+                obj[key] = this.$store.state.GOODS_LIST[x][y][key]
+              }
+              this.activeArr[i].push(obj)
+            }
+          }
+        }
+      }
+      if (!exist) {
+        arr.push(this.$store.state.GOODS_LIST[x][y])
+        this.activeArr.push(arr)
+      }
     },
-    goodsManageActive () {
-
+    goodsManageActive (x, y) {
+      if (this.activeArr.length <= 0) {
+        return false
+      } else {
+        for (let i = 0; i < this.activeArr.length; i++) {
+          let outer = this.activeArr[i]
+          if (outer[0].position.x === x) {
+            for (let j = 0; j < outer.length; j++) {
+              if (outer[j].position.y === y) {
+                this.activeArr[i].splice(j, 1)
+                if (this.activeArr[i].length <= 0) {
+                  this.activeArr.splice(i, 1)
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   computed: {
     shopDefaultManageState () {
-      let arr = this.activeArr
       return (x) => {
-        if (arr.length <= x) { return true }
-        return false
+        for (let i = 0; i < this.activeArr.length; i++) {
+          if (this.activeArr[i][0].position.x === x) {
+            return false
+          }
+        }
+        return true
       }
     },
     shopActiveManageState () {
-       let arr = this.activeArr
       return (x) => {
-        if (arr.length > x) { return true }
-        return false
-      }
-    },
-    goodsDefaultManageState () {
-      let arr = this.activeArr
-      return (x, y) => {
-        console.log()
-        if (arr.length === 0 || arr.length <= x || arr[x].length <= y) {
-          return true
+        for (let i = 0; i < this.activeArr.length; i++) {
+          if (this.activeArr[i][0].position.x === x) {
+            return true
+          }
         }
         return false
       }
     },
-    goodsActiveManageState () {
-      let arr = this.activeArr
+    goodsDefaultManageState () {
       return (x, y) => {
-        if (arr.length === 0 || arr.length <= x || arr[x].length <= y) {
-          return false
+        if (this.activeArr.length <= 0) {
+          return true
+        } else {
+          for (let i = 0; i < this.activeArr.length; i++) {
+            let outer = this.activeArr[i]
+            if (outer[0].position.x === x) {
+              for (let j = 0; j < outer.length; j++) {
+                if (outer[j].position.y === y) {
+                  return false
+                }
+              }
+            }
+          }
         }
         return true
       }
