@@ -32,7 +32,7 @@ const actions = {
           if (!exist) {
             exist = true
             data.key = i
-            payload['position'] = { x: i, y: length }
+            payload['position'] = { x: parseInt(i), y: parseInt(length) }
             data.value = payload
             commit('pushToGOODS_LISTByActionsToAddToShopCart', data)
             commit('changeLengthAdd')
@@ -41,14 +41,40 @@ const actions = {
         }
       }
       if (!exist) {
-        let length = state.GOODS_LIST.length
-        branch[0]['position'] = { x: length, y: 0 }
+        let leng = parseInt(state.GOODS_LIST.length)
+        branch[0]['position'] = { x: leng, y: 0 }
         data.value = branch
         commit('pushToGOODS_LISTByActionsToAddToShopCart', data)
         commit('changeLengthAdd')
       }
     }
   },
+  actions_changeGoodsNum ({ state, commit }, payload) {
+    let outer = state.GOODS_LIST
+    for (let i = 0; i < outer.length; i++) {
+      if (payload.x === outer[i][0].position.x) {
+        let inner = outer[i]
+        for (let j = 0; j < inner.length; j++) {
+          if (payload.y === inner[j].position.y) {
+            commit('changeGoodsNumByActionschangeGoodsNum', { state: payload.state, x: parseInt(i), y: parseInt(j) })
+          }
+        }
+      }
+    }
+  },
+  actions_deleteGoods ({ state, commit }, payload) {
+    let outer = state.GOODS_LIST
+    for (let i = 0; i < outer.length; i++) {
+      if (payload.x === outer[i][0].position.x) {
+        let inner = outer[i]
+        for (let j = 0; j < inner.length; j++) {
+          if (payload.y === inner[j].position.y) {
+            commit('deleteByActionsDeleteGoods', { x: parseInt(i), y: parseInt(j) })
+          }
+        }
+      }
+    }
+  }
 }
 
 export default actions

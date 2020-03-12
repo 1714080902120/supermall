@@ -51,7 +51,9 @@
       </div>
       <hr>
     </div>
-    <div class="btn" @click="sure()">确定</div>
+    <div class="btn-outer" :style="{ width }">
+      <div class="btn" @click="sure()">确定</div>
+    </div>
     </div>
   </div>
   
@@ -90,7 +92,7 @@ export default {
       priceFontSize: window.innerWidth * 0.0854 + 'px',
       width: window.innerWidth + 'px',
       height: 0,
-      sizeFontSize: window.innerWidth * 0.0533 + 'px',
+      sizeFontSize: window.innerWidth * 0.037 + 'px',
       num: 1,
       start: 0,
       beSelectedSize: 999,
@@ -282,7 +284,7 @@ export default {
           margin-top: 20px;
           .color {
             flex: auto;
-            margin: 0 10px;
+            margin: 1px 10px;
             border: 1px solid @bor-color;
             border-radius: 5px;
             color: @deactive-color;
@@ -316,18 +318,23 @@ export default {
         }
       }
     }
-    .btn {
+    .btn-outer {
       position: absolute;
-      width: 100%;
-      height: 6vh;
-      line-height: 6vh;
       bottom: 0;
-      margin: 10px 0;
-      background-color: rgb(253, 102, 43);
-      color: #fff;
-      text-align: center;
-      border-radius: 25px;
+      background-color: #fff;
+      .btn {
+        width: 100%;
+        height: 6vh;
+        line-height: 6vh;
+        bottom: 0;
+        margin: 10px 0;
+        background-color: rgb(253, 102, 43);
+        color: #fff;
+        text-align: center;
+        border-radius: 25px;
+      }
     }
+
   }
   .black {
     position: absolute;

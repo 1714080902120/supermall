@@ -1,16 +1,15 @@
 <template>
-  <div id="shopcart-bottom-item">
+  <div id="shopcart-count-bar">
     <div v-if="ifDelete">
       <div class="outer" :style="defaultStyle()">
         <div class="inner">
           <div class="select-all">
             <img v-if="!ifActive" @click="toAcitve()" src="~assets/img/shopcart/all.svg" alt="">
-            <img  v-if="ifActive" @click="toAcitve()" src="~assets/img/shopcart/all_active.svg" alt="">&nbsp;全选
+            <img v-if="ifActive" @click="toAcitve()" src="~assets/img/shopcart/all_active.svg" alt="">&nbsp;全选
           </div>
-          <div class="clear-tocollect-delete">
-            <span @click="clear()"><img src="~assets/img/shopcart/clear.svg" alt="">清理</span>
-            <span @click="addToCollect()">移入收藏夹</span>
-            <span @click="goDelete()">删除</span>
+          <div class="calc-count" :style="{ 'line-height': height }">
+            <span>合计:￥{{total}}元</span>
+            <span @click="count()" :style="{ 'width': countWidth, 'height': countHeight, 'line-height': countHeight }">结算</span>
           </div>
         </div>
       </div>
@@ -20,15 +19,18 @@
 
 <script>
 export default {
-  name: 'ShopcartBottomItem',
+  name: 'ShopcartCountBar',
   data () {
     return {
         height: window.innerHeight * .09 + 'px',
         width: window.innerWidth + 'px',
         Position: window.innerHeight / 13 + 'px',
         defaultFontSize: window.innerWidth * .05 + 'px',
-        ifDelete: false,
-        ifActive: false
+        countHeight: window.innerHeight * .07 + 'px',
+        countWidth: window.innerWidth * .3 + 'px',
+        ifDelete: true,
+        ifActive: false,
+        total: 0
     }
   },
   activated () {
@@ -36,6 +38,7 @@ export default {
   mounted () {
     this.appear()
     this.disappear()
+    this.toCalc()
   },
   methods: {
     toAcitve () {
@@ -46,25 +49,25 @@ export default {
         this.bus.$emit('cancel')
       }
     },
+    toCalc () {
+      this.bus.$on('theMoney', (res) => {
+        this.total = res
+      })
+    },
     appear () {
       this.bus.$on('iAmGoingToDelete', () => {
         this.ifActive = false
-        this.ifDelete = true
+        this.ifDelete = false
       })
     },
     disappear () {
       this.bus.$on('iAmFinishDelete', () => {
-        this.ifDelete = false
+        this.ifDelete = true
+        this.ifActive = false
       })
     },
-    goDelete () {
-      this.bus.$emit('iAmReadyDelete')
-    },
-    clear () {
-      console.log(2)
-    },
-    addToCollect () {
-      
+    count () {
+      console.log(1)
     }
   },
   computed: {
@@ -78,53 +81,36 @@ export default {
 </script>
 
 <style lang="less" scroped>
-  #shopcart-bottom-item {
+  #shopcart-count-bar {
+    position: relative;
     .outer {
-      position: absolute;
+      position: fixed;
       background-color: #fff;
       .inner {
         display: flex;
-        position: relative;
+        justify-content: space-around;
         .select-all {
+          margin-right: -150px;
           flex: auto;
           img {
-            width: 15%;
-            margin-left: 8px;
+            width: 7.5%;
+            margin-left: 10px;
             vertical-align: middle;
           }
         }
-        .clear-tocollect-delete {
+        .calc-count {
           position: relative;
           flex: auto;
-          margin-left: -8px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
           span {
-            flex: auto;
-            padding: 4px;
-            margin: 0 1.2px;
-            border-radius: 10px;
-            @media screen and (max-width: 320px) {
-              padding: 2px;
-              margin: 0;
-              border-radius: 9px;
-            }
-            @media screen and (min-width: 700px) {
-              padding: 8px;
-              margin: 0 12px;
-              border-radius: 25px;
-            }
-            &:first-child {
-              img {
-                width: 10%;
-                vertical-align: middle;
-              }
-            }
-            &:nth-child(2) {
-              color: rgb(255, 196, 0);
-              border: 2px solid rgb(255, 166, 0);
-            }
+            border-radius: 25px;
+            text-align: center;
             &:last-child {
-              color: rgb(255, 60, 0);
-              border: 2px solid rgb(255, 60, 0);
+              border: 0;
+              background: radial-gradient(at 50% 50%, rgb(254,119,2) 5%, rgb(255,102,14) 100%);
+              color: #fff;
             }
           }
         }

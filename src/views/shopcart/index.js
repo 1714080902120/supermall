@@ -5,6 +5,7 @@ import Empty from 'components/content/shopcart/shopcart_empty'
 import Recommend from 'components/content/shopcart/shopcart_recommend'
 import BottomItem from 'components/content/shopcart/shopcart_bottomItem'
 import GoodsDetail from 'components/content/shopcart/shopcart_goodsDetail'
+import CountBar from 'components/content/shopcart/shopcart_countBar'
 export {
   Navbar,
   Scroll,
@@ -12,5 +13,6 @@ export {
   Empty,
   Recommend,
   BottomItem,
-  GoodsDetail
+  GoodsDetail,
+  CountBar
 }

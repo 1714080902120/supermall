@@ -10,6 +10,7 @@
       <GoodsDetail/>
       <Recommend/>
     </Scroll>
+    <CountBar/>
     <BottomItem/>
   </div>
 </template>
@@ -23,7 +24,8 @@ import {
   Empty,
   Recommend,
   BottomItem,
-  GoodsDetail
+  GoodsDetail,
+  CountBar
 } from './index'
 
 export default {
@@ -40,7 +42,8 @@ export default {
     Empty,
     Recommend,
     BottomItem,
-    GoodsDetail
+    GoodsDetail,
+    CountBar
   },
   mounted () {
     this.$nextTick(() => {

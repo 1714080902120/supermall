@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <keep-alive>
+    <keep-alive exclude="ShopCart">
       <router-view/>  
     </keep-alive>
     <div v-if="notInDetail">

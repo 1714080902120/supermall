@@ -44,6 +44,20 @@ const mutations = {
   },
   changeLengthSub (state) {
     state.length -= 1
+  },
+  changeGoodsNumByActionschangeGoodsNum (state, payload) {
+    if (payload.state === 0) {
+      if (state.GOODS_LIST[payload.x][payload.y].priceAndNum.num < 1) return false
+      state.GOODS_LIST[payload.x][payload.y].priceAndNum.num -= 1
+    } else {
+      state.GOODS_LIST[payload.x][payload.y].priceAndNum.num += 1
+    }
+  },
+  deleteByActionsDeleteGoods (state, payload) {
+    state.GOODS_LIST[payload.x].splice(payload.y, 1)
+    if (state.GOODS_LIST[payload.x].length === 0) {
+      state.GOODS_LIST.splice(payload.x, 1)
+    }
   }
 }
 
