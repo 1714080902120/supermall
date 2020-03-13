@@ -365,10 +365,7 @@ export default {
 }
 @keyframes appear {
   form { transform: translate(0, 100%); }
-  to {
-    transform: translate(0, 0);
-    box-shadow: 0 -300px 1rem 1rem rgba(19, 19, 19, .7);
-  }
+  to { transform: translate(0, 0); }
 }
 @keyframes disappear {
   form { transform: translate(0, 0); }
