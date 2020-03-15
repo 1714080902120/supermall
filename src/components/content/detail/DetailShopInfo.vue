@@ -1,7 +1,7 @@
 <template>
   <div id="detail-shop-info" :style="{ 'font-size': defaultSize }">
     <div class="shop-logo-name" :style="{ 'line-height': shopLogoWidth }">
-        <img :style="{ 'width': shopLogoWidth }" :src="list.shopLogo" alt="">
+        <img :style="{ 'width': shopLogoWidth, 'height': shopLogoWidth }" :src="list.shopLogo" alt="">
         <p :style="{ 'font-size': shopNameWidth }">{{list.name}}</p>
       </div>
     <div class="shop-detail">

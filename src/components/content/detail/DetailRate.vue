@@ -73,6 +73,7 @@ export default {
         img {
           border-radius: 50%;
           width: 20%;
+          height: 20%;
         }
         p {
           position: absolute;
