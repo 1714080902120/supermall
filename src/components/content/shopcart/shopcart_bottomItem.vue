@@ -15,10 +15,12 @@
         </div>
       </div>
     </div>
+      <Toast word="确认要删除?" yes="删除" no="我再想想"/>
   </div>
 </template>
 
 <script>
+import Toast from 'components/common/toast/Toast'
 export default {
   name: 'ShopcartBottomItem',
   data () {
@@ -36,6 +38,9 @@ export default {
   mounted () {
     this.appear()
     this.disappear()
+  },
+  components: {
+    Toast
   },
   methods: {
     toAcitve () {
@@ -58,7 +63,7 @@ export default {
       })
     },
     goDelete () {
-      this.bus.$emit('iAmReadyDelete')
+      this.bus.$emit('toastAppear')
     },
     clear () {
       console.log(2)

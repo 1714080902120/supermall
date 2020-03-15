@@ -83,8 +83,6 @@ export default {
         if (outer[0].position.x === x) {
           for (let j = 0; j < outer.length; j++) {
             if (outer[j].position.y === y) {
-              console.log(i, j);
-              
               return { a: i, b: j }
             }
           }
@@ -139,6 +137,7 @@ export default {
         }
       })
       this.bus.$emit('theMoney', 0)
+      this.bus.$emit('cancelTheSelection')
     },
     goodsManage(x, y) {
       let exist = false,
@@ -167,7 +166,6 @@ export default {
       if (!exist) {
         let obj = {}
         let { a, b } = this.judge(x, y)
-        console.log(a,b)
         for (let key in this.$store.state.GOODS_LIST[a][b]) {
           obj[key] = this.$store.state.GOODS_LIST[a][b][key]
         }
@@ -187,7 +185,6 @@ export default {
                 this.activeArr[i].splice(j, 1)
                 if (this.activeArr[i].length <= 0) {
                   this.activeArr.splice(i, 1)
-                  console.log(111)
                 }
               }
             }
@@ -195,6 +192,7 @@ export default {
         }
       }
       this.bus.$emit('theMoney', 0)
+      this.bus.$emit('cancelTheSelection')
     },
     sub (x, y) {
       this.$store.dispatch('actions_changeGoodsNum', { state: 0, x, y })
@@ -260,9 +258,11 @@ export default {
   watch: {
     'activeArr' () {
       let total = 0
-      if (this.activeArr.length <= 0) return false
+      let length = 0
+      if (this.activeArr.length <= 0) { this.bus.$emit('totalNum', length); return false }
       for (let i = 0; i < this.activeArr.length; i++) {
         for (let j = 0; j < this.activeArr[i].length; j++) {
+          length += 1
           let price = parseInt(this.activeArr[i][j].priceAndNum.price.substr(1))
           let num = this.activeArr[i][j].priceAndNum.num
           if (!Number.isNaN(price)) {
@@ -273,6 +273,10 @@ export default {
           }
         }
       }
+      if (length === this.$store.state.length) { 
+        this.bus.$emit('allIsBeingSelected')
+      }
+      this.bus.$emit('totalNum', length)
     }
   }
 }

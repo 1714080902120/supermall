@@ -55,8 +55,8 @@ export default {
       }
       .btn {
         border: 3px solid rgba(150, 146, 146, 0.3);
+        background-color: rgba(173, 184, 133, 0.3);
         margin: 10px 130px;
-        background: #fff;
         @media screen and (max-width: 320px) {
           margin: 10px 110px;
         }

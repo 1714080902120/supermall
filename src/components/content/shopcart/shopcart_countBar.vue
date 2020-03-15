@@ -9,7 +9,7 @@
           </div>
           <div class="calc-count" :style="{ 'line-height': height }">
             <span>合计:￥{{total}}元</span>
-            <span @click="count()" :style="{ 'width': countWidth, 'height': countHeight, 'line-height': countHeight }">结算</span>
+            <span @click="count()" :style="{ 'width': countWidth, 'height': countHeight, 'line-height': countHeight }">结算({{(totalNum)}})</span>
           </div>
         </div>
       </div>
@@ -30,7 +30,8 @@ export default {
         countWidth: window.innerWidth * .3 + 'px',
         ifDelete: true,
         ifActive: false,
-        total: 0
+        total: 0,
+        totalNum: 0
     }
   },
   activated () {
@@ -39,6 +40,8 @@ export default {
     this.appear()
     this.disappear()
     this.toCalc()
+    this.num()
+    this.cancelTheSelection()
   },
   methods: {
     toAcitve () {
@@ -68,6 +71,19 @@ export default {
     },
     count () {
       console.log(1)
+    },
+    num () {
+      this.bus.$on('totalNum', res => {
+        this.totalNum = res
+      })
+      this.bus.$on('allIsBeingSelected', () => {
+        this.ifActive = true
+      })
+    },
+    cancelTheSelection () {
+      this.bus.$on('cancelTheSelection', () => {
+        this.ifActive = false
+      })
     }
   },
   computed: {

@@ -1,5 +1,6 @@
 <template>
   <div id="detail-tab-bar-to-shopcart" ref="outer" :style="{ 'font-size': defaultFontSize }">
+    <div class="black-bg" :style="{ width, 'height': blackBg }"></div>
     <div v-if="success">
       <div class="black" ref="success" :style="{ 'width': successWidth, 'height': successHeight }">
         <div class="img">
@@ -91,6 +92,7 @@ export default {
       defaultFontSize: window.innerWidth * 0.0427 + 'px',
       priceFontSize: window.innerWidth * 0.0854 + 'px',
       width: window.innerWidth + 'px',
+      blackBg: 0,
       height: 0,
       sizeFontSize: window.innerWidth * 0.037 + 'px',
       num: 1,
@@ -157,6 +159,7 @@ export default {
       this.$nextTick(() => {
         this.bus.$on('addToShopCart', (res) => {
           this.height = window.innerHeight * 0.75 + 'px'
+          this.blackBg = window.innerHeight + 'px'
           this.start = 1
           this.isBuy = res
         })
@@ -168,6 +171,7 @@ export default {
         ref = this.$refs.toShopCart
         ref.style.transform = 'translate(0, 0)'
         this.start = 2
+        this.blackBg = 0
         setTimeout(() => {
           this.height = 0
           ref.style.transform = 'translate(0, 100%)'
@@ -374,5 +378,11 @@ export default {
 @keyframes success {
   from { opacity: 1; }
   to { opacity: 0; }
+}
+.black-bg {
+  position: absolute;
+  top: 0;
+  z-index: 991;
+  background-color: rgba(10, 10, 10, .5);
 }
 </style>
