@@ -20,12 +20,15 @@ export default {
     fixLocation: {
       type: Number,
       default: 0
+    },
+    width: {
+      type: String,
+      default: window.innerWidth + 'px'
     }
   },
   data () {
     return {
       BS: null,
-      width: window.innerWidth + 'px',
       height: window.innerHeight * (1 - (1 / 16) - (1 / 13)) + 'px',
       show: false,
       y: 0
