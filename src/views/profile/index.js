@@ -6,6 +6,7 @@ import Order from 'components/content/profile/profile_order'
 import Tool from 'components/content/profile/profile_tool'
 import Swiper from 'components/content/profile/profile_swiper'
 import Watch from 'components/content/profile/profile_watch'
+import WatchDetail from 'components/content/profile/profile_watchDetail'
 export {
   Navbar,
   Scroll,
@@ -14,5 +15,6 @@ export {
   Order,
   Tool,
   Swiper,
-  Watch
+  Watch,
+  WatchDetail
 }

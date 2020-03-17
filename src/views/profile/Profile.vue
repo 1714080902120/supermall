@@ -12,6 +12,7 @@
       <Tool/>
       <Swiper/>
       <Watch/>
+      <WatchDetail/>
     </Scroll>
   </div>
 </template>
@@ -26,7 +27,8 @@ import {
   Order,
   Tool,
   Swiper,
-  Watch
+  Watch,
+  WatchDetail
 } from './index'
 
 export default {
@@ -54,7 +56,8 @@ export default {
     Order,
     Tool,
     Swiper,
-    Watch
+    Watch,
+    WatchDetail
   }
 }
 </script>
