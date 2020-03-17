@@ -18,7 +18,7 @@ export default {
   #tabbar-base {
     position: fixed;
     z-index: 990;
-    background-color: #f6f6f6;
+    background-color: #fff;
     display: flex;
     left: 0px;
     right: 0px;

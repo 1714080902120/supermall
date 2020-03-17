@@ -24,12 +24,15 @@ export default {
     width: {
       type: String,
       default: window.innerWidth + 'px'
+    },
+    height: {
+      type: String,
+      default: window.innerHeight * (1 - (1 / 16) - (1 / 13)) + 'px'
     }
   },
   data () {
     return {
       BS: null,
-      height: window.innerHeight * (1 - (1 / 16) - (1 / 13)) + 'px',
       show: false,
       y: 0
     }
