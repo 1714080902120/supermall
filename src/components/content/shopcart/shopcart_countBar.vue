@@ -70,7 +70,6 @@ export default {
       })
     },
     count () {
-      console.log(1)
     },
     num () {
       this.bus.$on('totalNum', res => {

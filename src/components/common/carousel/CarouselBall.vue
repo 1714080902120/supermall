@@ -29,7 +29,6 @@ export default {
         length = balls.length
         for (let i = 0; i < length; i++) {
           balls[i].addEventListener('touchstart', () => {
-            console.log(111)
           })
         }
       })

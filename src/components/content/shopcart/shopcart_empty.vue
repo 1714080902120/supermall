@@ -23,7 +23,6 @@ export default {
   },
   methods: {
     goShop() {
-      console.log(123)
     }
   },
   activated () {

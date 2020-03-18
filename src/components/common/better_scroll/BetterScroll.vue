@@ -80,7 +80,6 @@ export default {
           setTimeout(() => {
             this.$emit('addGoods')
           }, 2200)
-          console.log('上拉加载更多')
           setTimeout(() => {
             this.BS.finishPullUp()
           }, 6000)
@@ -92,7 +91,6 @@ export default {
     },
     refresh () {
       this.BS.refresh()
-      console.log('ready')
     },
     position () {
       this.BS.on('scroll', (position) => {

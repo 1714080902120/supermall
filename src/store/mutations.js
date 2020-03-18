@@ -33,11 +33,9 @@ const mutations = {
   },
   pushToGOODS_LISTByActionsToAddToShopCart (state, payload) {
     payload.key === -1 ? state.GOODS_LIST.push(payload.value) : state.GOODS_LIST[payload.key].push(payload.value)
-    console.log(state.GOODS_LIST)
   },
   changeNumFromGOODS_LISTByActionsToAddToShopCart (state, payload) {
     state.GOODS_LIST[payload.i][payload.j].priceAndNum.num += payload.num
-    console.log(state.GOODS_LIST)
   },
   changeLengthAdd (state) {
     state.length += 1

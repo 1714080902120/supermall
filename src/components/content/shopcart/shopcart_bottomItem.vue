@@ -66,7 +66,6 @@ export default {
       this.bus.$emit('toastAppear')
     },
     clear () {
-      console.log(2)
     },
     addToCollect () {
       

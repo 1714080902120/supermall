@@ -290,7 +290,7 @@ export default {
             total += (price * num)
             this.bus.$emit('theMoney', total)
           } else {
-            console.log(this.activeArr[i][j].priceAndNum.price)
+            return false
           }
         }
       }
@@ -312,7 +312,7 @@ export default {
             total += (price * num)
             this.bus.$emit('theMoney', total)
           } else {
-            console.log(this.activeArr[i][j].priceAndNum.price)
+            return false
           }
         }
       }

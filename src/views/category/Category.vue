@@ -53,7 +53,7 @@ export default {
     toGetCategory () {
       getCategory().then(res => {
         this.dataToSidebar = res.data.category.list
-      }).catch(err => { console.log(err) })
+      }).catch(err => { throw new Error(err) })
     },
     // 获取商品列表
     toGetSubCategory () {
@@ -64,7 +64,7 @@ export default {
             this.$refs.scroll.BS.finishPullUp()
             this.$refs.scroll.refresh()
           })
-        }).catch(err => { console.log(err) }) 
+        }).catch(err => { throw new Error(err) }) 
       })
     },
     imgFinishLoading () {

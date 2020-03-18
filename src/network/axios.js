@@ -14,7 +14,7 @@ export default function (options) {
       store.state.loading = true
       return config
     }, err => {
-      console.log('request请求失败!')
+      throw new Error(err)
       return err
     })
     instance.interceptors.response.use(res => {
@@ -23,10 +23,10 @@ export default function (options) {
       store.state.loading = false
       return res.data
     }, err => {
-      console.log('response返回失败!')
+      // console.log('response返回失败!')
       store.state.loading = false
       store.state.errState = true
-      console.log(err)
+      // console.log(err)
       if (err && err.response) {
 				switch (err.response.status) {
 					case 400:
