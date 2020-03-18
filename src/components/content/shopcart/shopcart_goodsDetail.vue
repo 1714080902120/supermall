@@ -67,7 +67,8 @@ export default {
       descHeight: window.innerHeight * .04 + 'px',
       descOuterHeight: window.innerHeight * .2 + 'px',
       titleHeight: window.innerHeight * .08 + 'px',
-      priceFontSize: window.innerWidth * .068 + 'px'
+      priceFontSize: window.innerWidth * .068 + 'px',
+      activeObj: {}
     }
   },
   mounted () {
@@ -75,6 +76,7 @@ export default {
     this.selectAll()
     this.cancelSelectAll()
     this.delete()
+    this.activeObj = {}
   },
   methods: {
     judge (x, y) {
@@ -196,9 +198,27 @@ export default {
     },
     sub (x, y) {
       this.$store.dispatch('actions_changeGoodsNum', { state: 0, x, y })
+      for (let i in this.activeArr) {
+        if (this.activeArr[i][0].position.x === x) {
+          for (let j in this.activeArr[i]) {
+            if (this.activeArr[i][j].position.y === y) {
+              this.activeObj = this.activeArr[i][j]
+            }
+          }
+        }
+      }
     },
     inc (x, y) {
       this.$store.dispatch('actions_changeGoodsNum', { state: 1, x, y })
+      for (let i in this.activeArr) {
+        if (this.activeArr[i][0].position.x === x) {
+          for (let j in this.activeArr[i]) {
+            if (this.activeArr[i][j].position.y === y) {
+              this.activeObj = this.activeArr[i][j]
+            }
+          }
+        }
+      }
     },
     delete () {
       this.bus.$on('iAmReadyDelete', () => {
@@ -256,6 +276,7 @@ export default {
     }
   },
   watch: {
+    deep: true,
     'activeArr' () {
       let total = 0
       let length = 0
@@ -277,7 +298,30 @@ export default {
         this.bus.$emit('allIsBeingSelected')
       }
       this.bus.$emit('totalNum', length)
-    }
+    },
+    'activeObj.priceAndNum.num' () {
+      let total = 0
+      let length = 0
+      if (this.activeArr.length <= 0) { this.bus.$emit('totalNum', length); return false }
+      for (let i = 0; i < this.activeArr.length; i++) {
+        for (let j = 0; j < this.activeArr[i].length; j++) {
+          length += 1
+          let price = parseInt(this.activeArr[i][j].priceAndNum.price.substr(1))
+          let num = this.activeArr[i][j].priceAndNum.num
+          if (!Number.isNaN(price)) {
+            total += (price * num)
+            this.bus.$emit('theMoney', total)
+          } else {
+            console.log(this.activeArr[i][j].priceAndNum.price)
+          }
+        }
+      }
+      if (length === this.$store.state.length) { 
+        this.bus.$emit('allIsBeingSelected')
+      }
+      this.bus.$emit('totalNum', length)
+    },
+    immediate: true
   }
 }
 </script>

@@ -6,6 +6,7 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import FastClick from 'fastclick'
 import LazyLoad from 'vue-lazyload'
+import { Upload } from 'element-ui'
 Vue.prototype.bus = new Vue ()
 Vue.use(MintUI)
 Vue.config.productionTip = false
@@ -15,6 +16,7 @@ Vue.use(LazyLoad, {
   loading: 'assets/img/lazy-load/loading.gif',
   attempt: 1
 })
+Vue.use(Upload)
 new Vue({
   router,
   store,
