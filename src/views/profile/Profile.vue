@@ -47,6 +47,11 @@ export default {
   },
   activated () {
     this.$store.state.moduleDetail.active = false
+    this.$nextTick(() => {
+      setTimeout(() => {
+        this.$refs.scroll.refresh()
+      }, 500)
+    })
   },
   components: {
     Navbar,

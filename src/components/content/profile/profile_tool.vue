@@ -104,7 +104,6 @@ export default {
             margin: 15px 0;
             img {
               width: 50%;
-              height: 50%;
             }
           }
         }
