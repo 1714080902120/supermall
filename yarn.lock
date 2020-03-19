@@ -3413,6 +3413,11 @@ extend@~3.0.2:
   resolved "https://registry.npm.taobao.org/extend/download/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
   integrity sha1-+LETa0Bx+9jrFAr/hYsQGewpFfo=
 
+extendible@0.1.x:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/extendible/-/extendible-0.1.1.tgz#e2a37ed87129fb4f9533e8a8d7506230a539c905"
+  integrity sha1-4qN+2HEp+0+VM+io11BiMKU5yQU=
+
 external-editor@^3.0.3:
   version "3.1.0"
   resolved "https://registry.npm.taobao.org/external-editor/download/external-editor-3.1.0.tgz#cb03f740befae03ea4d283caed2741a83f335495"
@@ -6385,6 +6390,13 @@ proxy-addr@~2.0.5:
     forwarded "~0.1.2"
     ipaddr.js "1.9.0"
 
+proxy-table@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/proxy-table/-/proxy-table-0.0.0.tgz#8b19d0b74894d48abc18785a935841df10ef8ed5"
+  integrity sha1-ixnQt0iU1Iq8GHhak1hB3xDvjtU=
+  dependencies:
+    routable "0.0.x"
+
 prr@~1.0.1:
   version "1.0.1"
   resolved "https://registry.npm.taobao.org/prr/download/prr-1.0.1.tgz#d3fc114ba06995a45ec6893f484ceb1d78f5f476"
@@ -6816,6 +6828,14 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^3.0.0"
     inherits "^2.0.1"
+
+routable@0.0.x:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/routable/-/routable-0.0.5.tgz#3aba070d4c08aa2311f6d4ce6a4e9e07df14a0b8"
+  integrity sha1-OroHDUwIqiMR9tTOak6eB98UoLg=
+  dependencies:
+    extendible "0.1.x"
+    xregexp "2.0.x"
 
 run-async@^2.2.0:
   version "2.3.0"
@@ -8251,6 +8271,11 @@ ws@^6.0.0, ws@^6.2.1:
   integrity sha1-RC/fCkftZPWbal2P8TD0dI7VJPs=
   dependencies:
     async-limiter "~1.0.0"
+
+xregexp@2.0.x:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/xregexp/-/xregexp-2.0.0.tgz#52a63e56ca0b84a7f3a5f3d61872f126ad7a5943"
+  integrity sha1-UqY+VsoLhKfzpfPWGHLxJq16WUM=
 
 xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.2"

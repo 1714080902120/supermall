@@ -15,7 +15,6 @@ export default function (options) {
       return config
     }, err => {
       throw new Error(err)
-      return err
     })
     instance.interceptors.response.use(res => {
       // console.log('response请求成功！')

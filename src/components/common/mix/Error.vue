@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     reload () {
-      history.go(0)
+      this.$router.replace('/')
       this.$store.state.errState = false
     }
   }
