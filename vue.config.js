@@ -1,7 +1,11 @@
 module.exports = {
+  publicPath: './',
   configureWebpack: {
     externals: {
       'T': 'T'
+    },
+    performance: {
+      hints: false
     },
     resolve: {
       alias: {

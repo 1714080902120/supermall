@@ -7,6 +7,7 @@ import 'mint-ui/lib/style.css'
 import FastClick from 'fastclick'
 import LazyLoad from 'vue-lazyload'
 import { Upload } from 'element-ui'
+import 'es6-promise/auto'
 Vue.prototype.bus = new Vue ()
 Vue.use(MintUI)
 Vue.config.productionTip = false
