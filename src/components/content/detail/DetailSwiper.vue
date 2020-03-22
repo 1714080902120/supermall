@@ -33,7 +33,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   #detail-swiper {
     img {
       width: 100%;

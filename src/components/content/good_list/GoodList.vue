@@ -57,7 +57,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   #good-list {
     color: #000;
     margin-top: 12px;

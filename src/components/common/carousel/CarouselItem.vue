@@ -10,7 +10,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   .carousel-item {
     position: relative;
     padding: 0;

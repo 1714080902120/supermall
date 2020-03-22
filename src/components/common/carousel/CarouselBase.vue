@@ -173,7 +173,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   #carousel-base, .moving {
     position: relative;
     display: flex;

@@ -64,7 +64,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   #detail-shop-info {
     margin: 20px 0;
     .shop-logo-name {

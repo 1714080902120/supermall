@@ -47,7 +47,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @color: rgba(69, 4, 107, 0.7);
   #detail-goods-info {
     .desc-outer {

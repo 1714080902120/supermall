@@ -26,7 +26,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   #category-navbar {
     background-color: var(--color-high-text);
   }

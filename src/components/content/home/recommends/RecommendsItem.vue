@@ -18,7 +18,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   .recommends-item {
     padding: 0;
     margin: 6px;

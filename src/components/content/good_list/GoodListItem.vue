@@ -51,7 +51,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   .good-list-item {
     margin: 0;
     padding: 4px;

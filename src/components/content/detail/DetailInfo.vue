@@ -54,7 +54,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   #detail-info {
     position: relative;
     margin-top: 12px;

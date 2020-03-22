@@ -30,7 +30,7 @@ export default {
 }
 </script>
 
-<style lang="less" scroped>
+<style lang="less" scoped>
   #shopcart-empty {
     .outer {
       position: relative;

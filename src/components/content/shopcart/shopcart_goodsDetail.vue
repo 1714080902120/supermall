@@ -326,7 +326,7 @@ export default {
 }
 </script>
 
-<style lang="less" scroped>
+<style lang="less" scoped>
   #shopcart-goods-detail {
     display: flex;
     flex-direction: column;

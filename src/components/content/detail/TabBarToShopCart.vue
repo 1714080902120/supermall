@@ -138,7 +138,7 @@ export default {
           this.close()
           this.success = true
           this.$nextTick(() => {
-            this.$refs.success.style.animation = 'success .5s .5s linear forwards'
+            this.$refs.success.style.animation = 'succeed .5s .5s linear forwards'
           })
           setTimeout(() => {
             this.success = false
@@ -201,7 +201,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @deactive-color: rgb(32, 2, 15);
 @deactive-bg-color: rgb(252, 239, 175);
 @bor-color: rgb(226, 186, 7);
@@ -212,7 +212,7 @@ export default {
     position: absolute;
     border-radius: 1.5% 1.5% 0 0;
     bottom: 0;
-    z-index: 991;
+    z-index: 1000;
     display: flex;
     flex-direction: column;
     background-color: rgb(255, 253, 253);
@@ -344,7 +344,7 @@ export default {
     position: absolute;
     width: 8rem;
     height: 6rem;
-    z-index: 999;
+    z-index: 1001;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -360,6 +360,10 @@ export default {
       color: #fff;
     }
   }
+      @keyframes succeed {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
 }
 .startAddToShopCart {
   animation: appear .2s linear forwards;
@@ -375,14 +379,10 @@ export default {
   form { transform: translate(0, 0); }
   to { transform: translate(0, 100%); }
 }
-@keyframes success {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
 .black-bg {
   position: absolute;
   top: 0;
-  z-index: 991;
+  z-index: 1000;
   background-color: rgba(10, 10, 10, .5);
 }
 </style>

@@ -95,7 +95,7 @@ export default {
 }
 </script>
 
-<style lang="less" scroped>
+<style lang="less" scoped>
   #shopcart-count-bar {
     position: relative;
     .outer {

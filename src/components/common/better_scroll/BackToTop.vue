@@ -19,7 +19,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   #back-to-top {
     position: fixed;
     right: 4px;

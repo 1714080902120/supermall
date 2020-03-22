@@ -81,7 +81,7 @@ export default {
 }
 </script>
 
-<style lang="less" scroped>
+<style lang="less" scoped>
   #shopcart-bottom-item {
     .outer {
       position: absolute;

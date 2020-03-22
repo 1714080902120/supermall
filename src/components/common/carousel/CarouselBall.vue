@@ -52,7 +52,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   #carousel-ball {
     position: absolute;
     display: flex;

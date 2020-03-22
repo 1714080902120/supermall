@@ -45,7 +45,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   #tab-control {
     position: sticky;
     display: flex;

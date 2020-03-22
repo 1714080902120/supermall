@@ -49,7 +49,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @color: rgba(100, 100, 100, .2);
   #detail-rate {
     margin: 20px 0;

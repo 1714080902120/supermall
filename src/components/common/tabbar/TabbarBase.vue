@@ -14,7 +14,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   #tabbar-base {
     position: fixed;
     z-index: 990;

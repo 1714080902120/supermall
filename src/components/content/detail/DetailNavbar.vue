@@ -1,7 +1,7 @@
 <template>
   <div id="detail-navbar">
     <Navbar>
-        <div class="left" slot="left"><img @click="goBack()" src="~assets/img/swiper/backup.svg" alt=""></div>
+        <div class="left" slot="left"><img @click="goBack()" src="~assets/img/swiper/backup.svg" alt="">返回</div>
         <div class="center" slot="center">
           <span v-for="(item, index) in navbarList" :key="item" @click="active(index)" :class="{ red: ifRed === index }">
             {{item}}
@@ -60,8 +60,9 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   #detail-navbar {
+    z-index: 100;
     .left, .right, .center {
       display: flex;
       background-color: #fff;
@@ -75,7 +76,6 @@ export default {
     }
     .left {
       img {
-        margin-left: 20px;
         width: 30%;
       }
     }

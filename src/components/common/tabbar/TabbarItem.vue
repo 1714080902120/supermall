@@ -43,7 +43,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   #tabbar-item {
     flex: 1;
     text-align: center;

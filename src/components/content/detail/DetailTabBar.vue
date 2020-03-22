@@ -83,7 +83,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   #detail-tab-bar {
     overflow: hidden;
     .outer {
