@@ -3,8 +3,9 @@ import store from 'store/index'
 export default function (options) {
   return new Promise((resolve, reject) => {
     const instance = Axios.create({
-      // baseURL: 'http://106.54.54.237:8000/api/wh',
-      baseURL: 'http://123.207.32.32:8000/api/wh',
+      // 需要接口请加老师微信 coderwhy001
+      // baseURL: 'http://xxx',
+      baseURL: 'http://xxx',
 			timeout: 8000
     })
 
